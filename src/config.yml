@@ -1,0 +1,21 @@
+# Plugin created by HegSiS !
+# For all the next message, the color code has been supported (&) !
+# It is the third version of SpawnerPickaxe
+
+###
+### IMPORTANT : IF YOU HAVE %durability% or %money% OR OTHER IN A MESSAGE DON'T ADD A '%'
+###
+
+# 1.7.10 → 1.12.2 : MOB_SPAWNER
+# 1.13 → 1.15 : SPAWNER
+spawner-item: MOB_SPAWNER
+
+use:
+  faction: false
+  superspawnerpickaxe: false
+  tnt_break_spawner: false
+  player_head_in_menu: true
+  right_click_spawner_menu: true
+  spawnerpickaxe_shop: true
+  spawnerpickaxe_sign: true
+  spawnerlist_menu: true

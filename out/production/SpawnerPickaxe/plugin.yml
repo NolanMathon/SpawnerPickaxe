@@ -1,0 +1,13 @@
+name: SpawnerPickaxe
+version: 3.0
+main : fr.hegsis.spawnerpickaxe.Main
+description: A usefull way to play with a spawner
+author: HegSiS
+depend:
+  - Vault
+commands:
+  spawnerpickaxe:
+    aliases: [sp, spickaxe]
+    description: All commands concerned with spawner pickaxe
+  spawner:
+    description: Show / Summon spawners
