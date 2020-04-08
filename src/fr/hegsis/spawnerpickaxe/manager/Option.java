@@ -2,8 +2,8 @@ package fr.hegsis.spawnerpickaxe.manager;
 
 public enum Option {
     FACTION,
-    TNT_BREAK_SPAWNER,
     SUPERSPAWNERPICKAXE,
+    TNT_BREAK_SPAWNER,
     PLAYER_HEAD_IN_MENU,
     RIGHT_CLICK_SPAWNER_MENU,
     SPAWNERPICKAXE_SHOP,

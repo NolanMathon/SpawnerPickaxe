@@ -3,6 +3,7 @@ version: 3.0
 main : fr.hegsis.spawnerpickaxe.Main
 description: A usefull way to play with a spawner
 author: HegSiS
+api-version: 1.13
 depend:
   - Vault
 commands:

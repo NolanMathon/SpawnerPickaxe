@@ -8,7 +8,35 @@
 
 # 1.7.10 → 1.12.2 : MOB_SPAWNER
 # 1.13 → 1.15 : SPAWNER
-spawner-item: MOB_SPAWNER
+spawner-item: SPAWNER
+
+# 1.7.10 → 1.12.2 : SKULL_ITEM
+# 1.13 → 1.15 : PLAYER_HEAD
+player-head-item: PLAYER_HEAD
+
+#The manage menu
+manage-gui:
+  menu-name: "&6&lSpawnerPickaxe Manager"
+  glass:
+    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE & data → 11
+    data: 0
+  faction: "&dFaction &7: %status%"
+  superspawnerpickaxe: "&dSuperSpawnerPickaxe &7: %status%"
+  tnt_break_spawner: "&dTNT destroy spawners &7: %status%"
+  player_head_in_menu: "&dTNT destroy spawners &7: %status%"
+  right_click_spawner_menu: "&dOpen menu when right click on spawner &7: %status%"
+  spawnerpickaxe_shop: "&dSpawnerPickaxe Shop &7: %status%"
+  spawnerpickaxe_sign: "&dSpawnerPickaxe Sign &7: %status%"
+  spawnerlist_menu: "&dSpawnerList Menu &7: %status%"
+  reload-config-file: "&dReload config file"
+  help-item:
+    name: "&7&lHOW TO CHANGE STATUS"
+    lore:
+      - "&dRight-Click to switch on an option"
+      - "&dLeft-Click to switch off an option"
+  leave-item: "&c&lLEAVE"
+  true: "&2[ &a&lTRUE &2]"
+  false: "&4[ &c&lFALSE &4]"
 
 use:
   faction: false
@@ -19,3 +47,90 @@ use:
   spawnerpickaxe_shop: true
   spawnerpickaxe_sign: true
   spawnerlist_menu: true
+
+spawner-inventory:
+  glass:
+    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE & data → 11
+    data: 0
+  name: "&6SpawnerListInventory"
+  item: 'SPAWNER'
+  item-name: "&5%entity%&d's spawner"
+  next-page: "&e&lNext Page &7(2/2)"
+  previous-page: "&e&lPrevious Page &7(1/2)"
+  leave: "&c&lLeave"
+
+# All disabled mob
+# BE CAREFULL, FEW MOBS CAN BE ON THE VERSION OF YOUR SERVER (ex: PARROT)
+disabled-mob:
+  - WITHER
+  - SKELETON_HORSE
+  - ZOMBIE_HORSE
+  - GIANT
+  - ENDER_DRAGON
+  - SQUID
+  - PARROT
+
+# SOUNDS HERE ARE COMPATIBLE IN 1.7.10 - 1.8
+# TO USE IN 1.9 - 1.10 - 1.11 ->
+# 1.7.10/1.8 -> 1.9/1.10/1.11/1.12/1.13/1.14/1.15
+# CHEST_OPEN -> BLOCK_CHEST_OPEN
+# NOTE_PLING -> BLOCK_NOTE_PLING
+# CLICK -> UI_BUTTON_CLICK
+# ANVIL_USE -> BLOCK_ANVIL_USE
+# SPLASH -> ENTITY_PLAYER_SPLASH
+# ARROW_HIT -> ENTITY_ARROW_HIT
+# ANVIL_BREAK -> BLOCK_ANVIL_BREAK
+sounds:
+  on-open-spickaxe-shop: BLOCK_CHEST_OPEN;true
+  on-inventory-click: UI_BUTTON_CLICK;true
+  on-spawner-break: BLOCK_ANVIL_HIT;true
+  on-spawner-place: ENTITY_PLAYER_SPLASH;true
+  on-click-sign: ENTITY_ARROW_HIT;true
+  on-click-sign-no-money: BLOCK_ANVIL_BREAK;true
+  on-fusion-spickaxe: BLOCK_ANVIL_USE;true
+
+#All configurable messages
+messages:
+  break-spawner-only: "&cYou can only break spawner !"
+  spawner-in-inventory: "&7The &d%entity%&7's spawner is on your inventory."
+  spawner-on-the-ground: "&7The &d%entity%&7's spawner is on the ground &cbecause your inventory is full &7!"
+  give-spawner: "&7You just receive &d%amount% &7spawner of &d%entity% &7!"
+  give-spawner-on-the-ground: "&7You just receive &d%amount% &7spawner of &d%entity% &7! (on the ground)"
+  spawner-break: "&7You just break a &d%spawner% &7spawner !"
+  spawner-place: "&7You just place a &d%spawner% &7spawner !"
+  no-pickaxe-on-inventory: "&cYou don't have pickaxe on your inventory !"
+  pickaxe-fusion: "&7Your &c%pickaxes% &7pickaxes fusion in one pickaxe with &c%durability% &7of durability"
+  pickaxe-broke: "&7Your pickaxe just &cbroke &7!"
+  pickaxe-less-one-durability: "&7Your pickaxe has now &c%durability% &7durability !"
+  reload-config-file: "&aConfig reload complete !"
+  durability-already-zero: "&cThe spawner don't break because your pickaxe have 0 of durability !"
+  buy-pickaxe: "&7You just buy a &6SpawnerPickaxe &7!"
+  buy-pickaxe-fail: "&cYou don't have enought money to buy pickaxe !"
+  error: "&cAn error occurred"
+  no-permission: "&cYou don't have the permission to do that !"
+  only-player: "&cOnly a player can do this command !"
+  full-inventory: "&cYour inventory is full, please clear him !"
+  error-sign-creation: "&cAn error occurred on your sign ! Please try again !"
+  price-durabiltiy-no-less-one: "&cThe price and the durability can't be inferior of 1 !"
+  inferior-zero: "&cThe pickaxe can't have less than 1 of durability !"
+  incorrect-sound: "&cThe sound %sound% isn't correct !"
+  spawner-not-found: "&7The &c%entity%&7's spawner isn't found !"
+  entity-disable: "&7The &c%entity%'s entity is disable !"
+  invalid-number: "&cThe number &4%number% &cisn't correct !"
+  invalid-player: "&cPlayer &4%player% &cnot found !"
+
+#All configurable permissions
+permissions:
+  all: "spawnerpickaxe.*"
+  spawnerpickaxe-help: "spawnerpickaxe.help"
+  reload-config-file: "spawnerpickaxes.reload"
+  pickaxe-create-sign: "spawnerpickaxe.sign.create"
+  pickaxe-use-sign: "spawnerpickaxe.sign.use"
+  pickaxe-shop: "spawnerpickaxe.shop"
+  pickaxe-give: "spawnerpickaxe.give"
+  pickaxe-fusion: "spawnerpickaxe.fusion"
+  pickaxe-use: "spawnerpickaxe.use"
+  spawner-give: "spawnerpickaxe.spawner.give"
+  spawner-list: "spawnerpickaxe.spawner.list"
+  spawner-use: "spawnerpickaxe.spawner.use"
+  show-errors: "spawnerpickaxe.errors"
