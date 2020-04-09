@@ -21,7 +21,7 @@ public class GiveItems {
             if (playerBalance >= price) {
                 givePickaxe(p, durability, main);
                 main.economy.withdrawPlayer(of, price);
-                Utils.sendMessage(p, "buy-pickaxe", main);
+                p.sendMessage(Utils.getConfigMessage("buy-pickaxe", main).replaceAll("%amount%", ""+durability).replaceAll("%price%", ""+price));
             } else {
                 Utils.sendMessage(p, "buy-pickaxe-fail", main);
             }

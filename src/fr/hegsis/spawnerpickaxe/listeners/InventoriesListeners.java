@@ -1,22 +1,18 @@
 package fr.hegsis.spawnerpickaxe.listeners;
 
 import fr.hegsis.spawnerpickaxe.Main;
+import fr.hegsis.spawnerpickaxe.SpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.utils.GiveItems;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class InventoriesListeners implements Listener {
 
@@ -72,95 +68,75 @@ public class InventoriesListeners implements Listener {
             }
         }
 
-
         /*****************************************************************
         *
         *                   SPAWNER PICKAXE SHOP
         *
          ******************************************************************/
-        /*if (e.getView().getTitle().equalsIgnoreCase(main.getConfig().getString("shop.inventory_name").replace("&", "§"))) {
-            if (e.getClickedInventory() != null && e.getClickedInventory() != p.getInventory()) {
-                e.setCancelled(true);
 
-                String pickaxe_description = main.getPickaxeDescription();
-                int durability, price, new_durability, new_price;
-                if (click_item == null) { return; }
-                if (click_item.getType() == Material.GREEN_STAINED_GLASS_PANE || click_item.getType() == Material.RED_STAINED_GLASS_PANE) {
-                    main.playSound(p, "on_inventory_click");
+        if (e.getView().getTitle().equalsIgnoreCase(main.getConfig().getString("shop-inventory.name").replace("&", "§"))) {
+            e.setCancelled(true);
 
-                    durability = main.getPickaxeDurability(e.getInventory().getItem(13));
-                    price = main.getPickaxePrice();
+            if (e.getClickedInventory() == p.getInventory()) return;
+            if (clickItem == null) return;
 
-                    new_durability = durability + main.getInt(ChatColor.stripColor(click_item.getItemMeta().getDisplayName()));
-                    if (new_durability < 1) {
-                        new_durability = 1;
-                        main.sendMessage(p, "inferior_zero");
-                    }
+            if (!clickItem.hasItemMeta()) return;
 
-                    new_price = new_durability * price;
+            int durability, price, newDurability, newPrice;
 
-                    //On update la pioche du shop
-                    ItemStack is = new ItemStack(main.getPickaxeItem());
-                    ItemMeta im = is.getItemMeta();
-                    im.setDisplayName(main.getPickaxeName());
-                    im.addEnchant(Enchantment.DURABILITY, 3, true);
-                    im.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-                    im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-                    im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                    List<String> lore = new ArrayList<>();
-                    lore.add(pickaxe_description.replaceAll("%durability%", ""+new_durability));
-                    im.setLore(lore);
-                    is.setItemMeta(im);
-                    e.getInventory().setItem(13, is);
+            if (clickItem.getType() == Material.getMaterial(main.getConfig().getString("shop-inventory.add-item.item")) || clickItem.getType() == Material.getMaterial(main.getConfig().getString("shop-inventory.remove-item.item"))) {
+                Utils.playSound(p, "on-inventory-click", main);
 
-                    //On update le papier qui indique le prix
-                    is = main.playerHead("MHF_QUESTION", main.getConfig().getString("shop.price_item").replace("&", "§").replaceAll("%price%",""+new_price), "PAPER");
-                    e.getInventory().setItem(22, is);
+                SpawnerPickaxe sp = new SpawnerPickaxe(e.getInventory().getItem(13));
+                durability = sp.getDurability(main);
+                price = main.getConfig().getInt("shop-inventory.price");
 
-                    p.updateInventory();
+                newDurability = durability + Utils.isNumber(ChatColor.stripColor(clickItem.getItemMeta().getDisplayName()));
+                if (newDurability < 1) {
+                    newDurability = 1;
+                    Utils.sendMessage(p, "inferior-zero", main);
                 }
 
-                if (click_item.getType() == Material.GREEN_TERRACOTTA || click_item.getType() == Material.RED_TERRACOTTA) {
-                    main.playSound(p, "on_inventory_click");
+                newPrice = newDurability * price;
 
-                    //Si le joueur clique sur quitter
-                    if (click_item.getItemMeta().getDisplayName().equalsIgnoreCase(main.getConfig().getString("shop.quit_item").replace("&", "§"))) {
+                //On update la pioche du shop
+                SpawnerPickaxe newSp = new SpawnerPickaxe(main.getPickaxe().clone());
+                newSp.setDurability(newDurability);
+                e.getInventory().setItem(13, newSp.getPickaxe());
+
+                //On update le papier qui indique le prix
+                e.getInventory().setItem(22, Utils.playerHead("MHF_QUESTION", main.getConfig().getString("shop-inventory.price-item.name").replace("&", "§").replaceAll("%price%",""+newPrice), main.getConfig().getString("shop-inventory.price-item.item"), main));
+
+                p.updateInventory();
+            }
+
+            if (clickItem.getType() == main.shopInventory.getItem(23).getType() || clickItem.getType() == main.shopInventory.getItem(21).getType()) {
+                Utils.playSound(p, "on-inventory-click", main);
+
+                // Si le joueur clique sur quitter
+                if (clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(main.getConfig().getString("shop-inventory.quit-item.name").replace("&", "§"))) {
+                    p.closeInventory();
+                    return;
+                }
+
+                // Si le joueur cliquer sur accepter
+                if (clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(main.getConfig().getString("shop-inventory.accept-item.name").replace("&", "§"))) {
+                    try {
+                        price = Utils.isNumber(Utils.getValue(e.getInventory().getItem(22).getItemMeta().getDisplayName(), "shop-inventory.price-item.name", true, main));
+                        SpawnerPickaxe sp = new SpawnerPickaxe(e.getInventory().getItem(13));
+                        durability = sp.getDurability(main);
+                    } catch (NumberFormatException nfe) {
+                        main.getLogger().severe(nfe.toString());
                         p.closeInventory();
+                        return;
                     }
 
-                    if (click_item.getItemMeta().getDisplayName().equalsIgnoreCase(main.getConfig().getString("shop.accept_item").replace("&", "§"))) {
-
-                        try {
-                            price = main.getInt(main.getValue(e.getInventory().getItem(22).getItemMeta().getDisplayName(), "shop.price_item", true));
-                            durability = main.getPickaxeDurability(e.getInventory().getItem(13));
-                        } catch (NumberFormatException nfe) {
-                            main.getLogger().severe(nfe.toString());
-                            p.closeInventory();
-                            return;
-                        }
-
-                        if (p.getInventory().firstEmpty() != -1) {
-                            if (main.economy.getBalance(p.getName()) >= (double)price) {
-                                main.givePickaxe(p, ""+durability);
-                                p.updateInventory();
-                                p.closeInventory();
-                                main.economy.withdrawPlayer(p.getName(), (double)price);
-                                main.sendMessage(p, "buy_pickaxe");
-                            } else {
-                                main.sendMessage(p, "buy_pickaxe_fail");
-                            }
-                        } else {
-                            main.sendMessage(p, "full_inventory");
-                        }
-                    }
+                    GiveItems.payAndGiveSpawnerPickaxe(p, price, durability, main);
+                    p.closeInventory();
+                    return;
                 }
             }
-
-            if (e.getClickedInventory() == p.getInventory()) {
-                e.setCancelled(true);
-            }
-        }*/
-
+        }
     }
 
 }

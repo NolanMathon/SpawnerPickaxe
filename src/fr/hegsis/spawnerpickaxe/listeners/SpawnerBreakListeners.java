@@ -73,7 +73,6 @@ public class SpawnerBreakListeners implements Listener {
             p.getInventory().setItemInHand(new ItemStack(Material.AIR));
         } else {
             sp.removeDurability(1, main);
-            //p.getInventory().addItem(sp.getPickaxe());
             p.sendMessage(Utils.getConfigMessage("pickaxe-less-one-durability", main).replaceAll("%durability%", "" + durability));
         }
 

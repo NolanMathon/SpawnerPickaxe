@@ -72,11 +72,10 @@ use:
 #############################################################################
 
 spawner-inventory:
+  name: "&6SpawnerListInventory"
   glass:
     item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
     data: 0
-  name: "&6SpawnerListInventory"
-  item: 'SPAWNER'
   item-name: "&5%entity%&d's spawner"
   next-page: "&e&lNext Page &7(2/2)"
   previous-page: "&e&lPrevious Page &7(1/2)"
@@ -122,10 +121,10 @@ superpickaxe:
 #############################################################################
 
 shop-inventory:
+  name: "&6SpawnerPickaxeShop"
   glass:
     item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
     data: 0
-  name: "&6SpawnerPickaxeShop"
   remove-item:
     item: RED_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
     data: 0
@@ -223,7 +222,7 @@ messages:
   pickaxe-less-one-durability: "&7Your pickaxe has now &c%durability% &7durability !"
   reload-config-file: "&aConfig reload complete !"
   durability-already-zero: "&cThe spawner don't break because your pickaxe have 0 of durability !"
-  buy-pickaxe: "&7You just buy a &6SpawnerPickaxe &7!"
+  buy-pickaxe: "&7You just buy a &6SpawnerPickaxe &7with &6%amount% &7of durability for &6$%price% &7!"
   buy-pickaxe-fail: "&cYou don't have enought money to buy pickaxe !"
   error: "&cAn error occurred"
   no-permission: "&cYou don't have the permission to do that !"

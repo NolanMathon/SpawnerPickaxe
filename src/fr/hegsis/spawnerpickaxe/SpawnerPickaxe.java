@@ -16,6 +16,7 @@ public class SpawnerPickaxe {
     public SpawnerPickaxe(ItemStack pickaxe) {
         this.pickaxe = pickaxe;
         this.pickaxeMeta = pickaxe.getItemMeta();
+        addEnchant();
     }
 
     public ItemStack getPickaxe() {
@@ -93,17 +94,19 @@ public class SpawnerPickaxe {
     }
 
     public void give(Player p) {
+        if (p.getInventory().firstEmpty() != -1) {
+            p.getInventory().addItem(pickaxe);
+        } else {
+            p.getLocation().getWorld().dropItemNaturally(p.getLocation(), pickaxe);
+        }
+    }
+
+    public void addEnchant() {
         pickaxeMeta.spigot().setUnbreakable(true);
         pickaxeMeta.addEnchant(Enchantment.DURABILITY, 3, true);
         pickaxeMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         pickaxeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         pickaxeMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         create();
-
-        if (p.getInventory().firstEmpty() != -1) {
-            p.getInventory().addItem(pickaxe);
-        } else {
-            p.getLocation().getWorld().dropItemNaturally(p.getLocation(), pickaxe);
-        }
     }
 }

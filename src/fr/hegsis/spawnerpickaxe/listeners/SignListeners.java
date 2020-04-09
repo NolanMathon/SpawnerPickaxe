@@ -25,40 +25,38 @@ public class SignListeners implements Listener {
     public void onSign(SignChangeEvent e) {
         Player p = e.getPlayer();
 
-        if (e.getLine(0).equalsIgnoreCase("[SPICKAXE]")) {
+        if (!e.getLine(0).equalsIgnoreCase("[SPICKAXE]")) return;
 
-            if (!Utils.hasPermission(p, "pickaxe-create-sign", main)) {
-                Utils.sendMessage(p, "no-permission", main);
-                e.getBlock().breakNaturally();
-                return;
-            }
-
-            List<String> configSignLine =  main.getConfig().getStringList("sign.shop");
-            String configLine, signLine, price, durability;
-            price = e.getLine(1);
-            durability = e.getLine(2);
-
-            if (Utils.isNumber(durability) < 1 || Utils.isNumber(price) < 1) {
-                Utils.sendMessage(p, "price-durabiltiy-no-less-one", main);
-                e.getBlock().breakNaturally();
-                return;
-            }
-
-            for (int i=0; i<4; i++) {
-                configLine = configSignLine.get(i).replaceAll("&", "§");
-                if (!configLine.equalsIgnoreCase("")) {
-                    try {
-                        e.setLine(i, configLine.replaceAll("%price%",price).replaceAll("%durability%", durability));
-                    } catch (Exception ex) {
-                        e.getBlock().breakNaturally();
-                        Utils.sendMessage(p, "error-sign-creation", main);
-                    }
-                } else {
-                    e.setLine(i, "");
-                }
-            }
+        if (!Utils.hasPermission(p, "pickaxe-create-sign", main)) {
+            Utils.sendMessage(p, "no-permission", main);
+            e.getBlock().breakNaturally();
+            return;
         }
 
+        List<String> configSignLine =  main.getConfig().getStringList("sign.shop");
+        String configLine, signLine, price, durability;
+        price = e.getLine(1);
+        durability = e.getLine(2);
+
+        if (Utils.isNumber(durability) < 1 || Utils.isNumber(price) < 1) {
+            Utils.sendMessage(p, "price-durabiltiy-no-less-one", main);
+            e.getBlock().breakNaturally();
+            return;
+        }
+
+        for (int i=0; i<4; i++) {
+            configLine = configSignLine.get(i).replaceAll("&", "§");
+            if (!configLine.equalsIgnoreCase("")) {
+                try {
+                    e.setLine(i, configLine.replaceAll("%price%",price).replaceAll("%durability%", durability));
+                } catch (Exception ex) {
+                    e.getBlock().breakNaturally();
+                    Utils.sendMessage(p, "error-sign-creation", main);
+                }
+            } else {
+                e.setLine(i, "");
+            }
+        }
     }
 
     @EventHandler
@@ -88,11 +86,8 @@ public class SignListeners implements Listener {
                         price = Utils.isNumber(Utils.getValue(sign.getLine(i), configLine, false, main));
                     }
                 }
-
-                System.out.println("Durabilité du spawner : " + durability);
-
                 GiveItems.payAndGiveSpawnerPickaxe(p, price, durability, main);
-
+                return;
             }
         }
     }
