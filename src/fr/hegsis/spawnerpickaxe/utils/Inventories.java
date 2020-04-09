@@ -2,7 +2,6 @@ package fr.hegsis.spawnerpickaxe.utils;
 
 import fr.hegsis.spawnerpickaxe.Main;
 import fr.hegsis.spawnerpickaxe.SpawnerPickaxe;
-import fr.hegsis.spawnerpickaxe.manager.Option;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -10,13 +9,14 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Inventories {
 
-    public static void setEntityInventoryList(Main main) {
+    public static void setEntityInventoryList(@NotNull Main main) {
         String spawnerInventoryName = main.getConfig().getString("spawner-inventory.name").replaceAll("&", "§");
         main.spawnerInventory = Bukkit.createInventory(null, 54, spawnerInventoryName);
         main.spawnerInventoryNext = Bukkit.createInventory(null, 54, spawnerInventoryName);
@@ -26,25 +26,23 @@ public class Inventories {
         boolean multipage = false;
         int nb_ent = 0;
         for (EntityType e : main.entityList) {
-            if (main.optionsUsed.get(Option.SPAWNERLIST_MENU)) {
-                //spawnerIt = Utils.playerHead("MHF_" + (e.name().replace("_", "")).toUpperCase(), main.getConfig().getString("spawner-inventory.item-name").replaceAll("%entity%", e.name()), main.getSpawnerItem().toString(), main);
+            //spawnerIt = Utils.playerHead("MHF_" + (e.name().replace("_", "")).toUpperCase(), main.getConfig().getString("spawner-inventory.item-name").replaceAll("%entity%", e.name()), main.getSpawnerItem().toString(), main);
 
-                spawnerIt = new ItemStack(main.getSpawnerItem());
-                spawnerIm = spawnerIt.getItemMeta();
-                spawnerIm.setDisplayName(main.getConfig().getString("spawner-inventory.item-name").replaceAll("%entity%", e.name()).replaceAll("&", "§"));
-                List<String> lore = new ArrayList<>();
-                lore.add("§7" + e.toString());
-                spawnerIm.setLore(lore);
-                spawnerIt.setItemMeta(spawnerIm);
+            spawnerIt = new ItemStack(main.getSpawnerItem());
+            spawnerIm = spawnerIt.getItemMeta();
+            spawnerIm.setDisplayName(main.getConfig().getString("spawner-inventory.item-name").replaceAll("%entity%", e.name()).replaceAll("&", "§"));
+            List<String> lore = new ArrayList<>();
+            lore.add("§7" + e.toString());
+            spawnerIm.setLore(lore);
+            spawnerIt.setItemMeta(spawnerIm);
 
-                if (nb_ent >= 45) {
-                    multipage = true;
-                    main.spawnerInventoryNext.addItem(spawnerIt);
-                } else {
-                    main.spawnerInventory.addItem(spawnerIt);
-                }
-                nb_ent++;
+            if (nb_ent >= 45) {
+                multipage = true;
+                main.spawnerInventoryNext.addItem(spawnerIt);
+            } else {
+                main.spawnerInventory.addItem(spawnerIt);
             }
+            nb_ent++;
         }
 
         // On met les vitres noirs
@@ -73,7 +71,7 @@ public class Inventories {
         }
     }
 
-    public static void setShopInventory(Main main) {
+    public static void setShopInventory(@NotNull Main main) {
         main.shopInventory = Bukkit.createInventory(null, 27, main.getConfig().getString("shop-inventory.name").replaceAll("&", "§"));
 
         ItemStack it;

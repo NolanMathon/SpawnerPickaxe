@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class SpawnerPickaxe {
     private ItemStack pickaxe;
     private ItemMeta pickaxeMeta;
 
-    public SpawnerPickaxe(ItemStack pickaxe) {
+    public SpawnerPickaxe(@NotNull ItemStack pickaxe) {
         this.pickaxe = pickaxe;
         this.pickaxeMeta = pickaxe.getItemMeta();
         addEnchant();

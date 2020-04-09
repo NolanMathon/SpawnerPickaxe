@@ -40,7 +40,7 @@ manage-gui:
   faction: "&dFaction &7: %status%"
   superspawnerpickaxe: "&dSuperSpawnerPickaxe &7: %status%"
   tnt_break_spawner: "&dTNT destroy spawners &7: %status%"
-  player_head_in_menu: "&dTNT destroy spawners &7: %status%"
+  player_head_in_menu: "&dPlayer head in menu &7: %status%"
   right_click_spawner_menu: "&dOpen menu when right click on spawner &7: %status%"
   spawnerpickaxe_shop: "&dSpawnerPickaxe Shop &7: %status%"
   spawnerpickaxe_sign: "&dSpawnerPickaxe Sign &7: %status%"
@@ -231,11 +231,13 @@ messages:
   error-sign-creation: "&cAn error occurred on your sign ! Please try again !"
   price-durabiltiy-no-less-one: "&cThe price and the durability can't be inferior of 1 !"
   inferior-zero: "&cThe pickaxe can't have less than 1 of durability !"
-  incorrect-sound: "&cThe sound %sound% isn't correct !"
+  incorrect-sound: "&cThe sound &4%sound% &cisn't correct !"
   spawner-not-found: "&7The &c%entity%&7's spawner isn't found !"
   entity-disable: "&7The &c%entity%'s entity is disable !"
   invalid-number: "&cThe number &4%number% &cisn't correct !"
   invalid-player: "&cPlayer &4%player% &cnot found !"
+  option-disable: "&cOption &4%option% &cis disabled !"
+  option-set: "&7Option &c%option% &7set to &c%status% &7!"
 
 #############################################################################
 #                                                                           #

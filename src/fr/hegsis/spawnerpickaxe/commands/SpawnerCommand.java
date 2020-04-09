@@ -104,11 +104,12 @@ public class SpawnerCommand implements CommandExecutor {
 
         sender.sendMessage("§7§m---------§6 SpawnerPickaxe Help §7§m---------");
         sender.sendMessage("");
-        sender.sendMessage("§8• §a/sp §7(player) (durability) §f→ §eGive a Spawner Pickaxe");
-        sender.sendMessage("§8• §a/sp shop §f→ §eOpen Spawner Pickaxe Shop");
-        sender.sendMessage("§8• §a/sp reload §f→ §eReload config file");
-        sender.sendMessage("§8• §a/spawner list §f→ §eList of spawners");
-        sender.sendMessage("§8• §a/spawner [entity] (player) §7(amount) §f→ §eGive a spawner");
+        sender.sendMessage("§8• §6/ps §7(player) (durability) §f→ §eGive a Spawner Pickaxe");
+        sender.sendMessage("§8• §6/ps shop §f→ §eOpen Spawner Pickaxe Shop");
+        sender.sendMessage("§8• §6/ps fusion §f→ §eMerge pickaxes");
+        sender.sendMessage("§8• §6/ps reload §f→ §eReload config file");
+        sender.sendMessage("§8• §6/spawner list §f→ §eList of spawners");
+        sender.sendMessage("§8• §6/spawner [entity] §7(player) (amount) §f→ §eGive a spawner");
         sender.sendMessage("");
         sender.sendMessage("§7§m---------§6 SpawnerPickaxe Help §7§m---------");
         return false;

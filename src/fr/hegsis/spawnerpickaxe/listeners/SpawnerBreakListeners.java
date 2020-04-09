@@ -2,6 +2,7 @@ package fr.hegsis.spawnerpickaxe.listeners;
 
 import fr.hegsis.spawnerpickaxe.Main;
 import fr.hegsis.spawnerpickaxe.SpawnerPickaxe;
+import fr.hegsis.spawnerpickaxe.manager.Option;
 import fr.hegsis.spawnerpickaxe.utils.GiveItems;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.Material;
@@ -24,7 +25,10 @@ public class SpawnerBreakListeners implements Listener {
 
     @EventHandler
     public void onSpawnerBreak(BlockBreakEvent e) {
-        if (e.isCancelled()) return;
+        // Si l'option du faction est activée
+        if (main.optionsUsed.get(Option.FACTION)) {
+            if (e.isCancelled()) return;
+        }
 
         Player p = e.getPlayer();
         if (p.getItemInHand() == null) return;

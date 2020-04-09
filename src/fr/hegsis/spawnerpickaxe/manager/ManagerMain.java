@@ -46,7 +46,7 @@ public class ManagerMain {
         }
 
         int[] cell = {10, 11, 14, 15, 16, 21, 23};
-        String[] material = {"OBSIDIAN", "DIAMOND_PICKAXE"/*main.getSuperPickaxeItem().toString()*/, main.getSpawnerItem().toString(), "IRON_PICKAXE"/*main.getPickaxeItem().toString()*/, main.getSignItem().toString(),  main.getSpawnerItem().toString(), "STONE_BUTTON"};
+        String[] material = {"OBSIDIAN", "DIAMOND_PICKAXE"/*main.getSuperPickaxeItem().toString()*/, main.getSpawnerItem().toString(), main.getPickaxe().getType().toString(), main.getSignItem().toString(),  main.getSpawnerItem().toString(), "STONE_BUTTON"};
         String[] name = new String[Option.values().length+1];
         int j=0;
         for (Option op : Option.values()) {
@@ -67,6 +67,9 @@ public class ManagerMain {
 
         it = Utils.playerHead("MHF_TNT2", getConfigName("tnt_break_spawner", main.optionsUsed.get(Option.TNT_BREAK_SPAWNER), main), "TNT", main);
         inv.setItem(12, it);
+
+        it = Utils.playerHead("MHF_Exclamation", getConfigName("player_head_in_menu", main.optionsUsed.get(Option.PLAYER_HEAD_IN_MENU), main), main.getPlayerHeadItem().toString(), main);
+        inv.setItem(13, it);
 
         it = Utils.playerHead("MHF_Exclamation", main.getConfig().getString("manage-gui.leave-item").replaceAll("&","§"), "BARRIER", main);
         inv.setItem(27, it);

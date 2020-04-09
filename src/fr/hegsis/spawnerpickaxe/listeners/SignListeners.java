@@ -1,6 +1,7 @@
 package fr.hegsis.spawnerpickaxe.listeners;
 
 import fr.hegsis.spawnerpickaxe.Main;
+import fr.hegsis.spawnerpickaxe.manager.Option;
 import fr.hegsis.spawnerpickaxe.utils.GiveItems;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.block.Sign;
@@ -29,6 +30,12 @@ public class SignListeners implements Listener {
 
         if (!Utils.hasPermission(p, "pickaxe-create-sign", main)) {
             Utils.sendMessage(p, "no-permission", main);
+            e.getBlock().breakNaturally();
+            return;
+        }
+
+        if (!main.optionsUsed.get(Option.SPAWNERPICKAXE_SIGN)) {
+            p.sendMessage(Utils.getConfigMessage("option-disable", main).replaceAll("&", "§").replaceAll("%option%", Option.SPAWNERPICKAXE_SIGN.toString().toLowerCase().replaceAll("_", " ")));
             e.getBlock().breakNaturally();
             return;
         }
@@ -69,6 +76,11 @@ public class SignListeners implements Listener {
 
                 if (!Utils.hasPermission(p, "pickaxe-use-sign", main)) {
                     Utils.sendMessage(p, "no-permission", main);
+                    return;
+                }
+
+                if (!main.optionsUsed.get(Option.SPAWNERPICKAXE_SIGN)) {
+                    p.sendMessage(Utils.getConfigMessage("option-disable", main).replaceAll("&", "§").replaceAll("%option%", Option.SPAWNERPICKAXE_SIGN.toString().toLowerCase().replaceAll("_", " ")));
                     return;
                 }
 

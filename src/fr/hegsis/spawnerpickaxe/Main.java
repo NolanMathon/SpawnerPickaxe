@@ -103,7 +103,7 @@ public class Main extends JavaPlugin {
         spawnerPickaxe.setLore(Utils.convertListColorCode(getConfig().getStringList("pickaxe.description")));
     }
 
-    private void setAllDefaultInventoriesAndEntities() {
+    public void setAllDefaultInventoriesAndEntities() {
         entityList = Entities.setEntityList(this);
         entityListString = Entities.setEntityListString(entityList);
         manageInventory = ManagerMain.setManageInventory(this);
@@ -120,7 +120,7 @@ public class Main extends JavaPlugin {
     }
 
     public Material getSignItem() {
-        return playerHeadItem;
+        return signItem;
     }
 
     public ItemStack getPickaxe() {

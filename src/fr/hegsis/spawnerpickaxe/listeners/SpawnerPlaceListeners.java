@@ -1,6 +1,7 @@
 package fr.hegsis.spawnerpickaxe.listeners;
 
 import fr.hegsis.spawnerpickaxe.Main;
+import fr.hegsis.spawnerpickaxe.manager.Option;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.block.CreatureSpawner;
@@ -23,7 +24,10 @@ public class SpawnerPlaceListeners implements Listener {
 
     @EventHandler
     public void onSpawnerPlace(BlockPlaceEvent e) {
-        if (e.isCancelled()) return;
+        // Si l'option du faction est activée
+        if (main.optionsUsed.get(Option.FACTION)) {
+            if (e.isCancelled()) return;
+        }
 
         if (!(e.getBlockPlaced().getType() == main.getSpawnerItem())) return; // Si ce n'est pas un spawner on fait rien
 

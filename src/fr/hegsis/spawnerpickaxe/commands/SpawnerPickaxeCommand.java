@@ -95,6 +95,11 @@ public class SpawnerPickaxeCommand implements CommandExecutor {
                     return false;
                 }
 
+                if (!main.optionsUsed.get(Option.SPAWNERPICKAXE_SHOP)) {
+                    p.sendMessage(Utils.getConfigMessage("option-disable", main).replaceAll("&", "§").replaceAll("%option%", Option.SPAWNERPICKAXE_SHOP.toString().toLowerCase().replaceAll("_", " ")));
+                    return false;
+                }
+
                 OfflinePlayer of = Bukkit.getOfflinePlayer(p.getUniqueId());
                 Double money = main.economy.getBalance(of);
                 NumberFormat nf = new DecimalFormat("0.##");
@@ -110,9 +115,9 @@ public class SpawnerPickaxeCommand implements CommandExecutor {
             }
 
             if (args.length == 1 && (args[0].equalsIgnoreCase("manage") || args[0].equalsIgnoreCase("gui"))) {
-                Inventory inv = Bukkit.createInventory(null, 36, main.manageInventory.getTitle());
+                Inventory inv = Bukkit.createInventory(null, 36, main.getConfig().getString("manage-gui.menu-name").replaceAll("&","§"));
                 inv.setContents(main.manageInventory.getContents().clone());
-                inv.setItem(13, Utils.playerHead(p.getName(), ManagerMain.getConfigName("player-head-in-menu", main.optionsUsed.get(Option.PLAYER_HEAD_IN_MENU), main), main.getPlayerHeadItem().toString(), main));
+                inv.setItem(13, Utils.playerHead(p.getName(), ManagerMain.getConfigName(Option.PLAYER_HEAD_IN_MENU.toString().toLowerCase(), main.optionsUsed.get(Option.PLAYER_HEAD_IN_MENU), main), main.getPlayerHeadItem().toString(), main));
                 p.openInventory(inv);
                 return true;
             }
@@ -165,14 +170,14 @@ public class SpawnerPickaxeCommand implements CommandExecutor {
 
         sender.sendMessage("§7§m---------§6 SpawnerPickaxe Help §7§m---------");
         sender.sendMessage("");
-        sender.sendMessage("§8• §e/sp §7(player) (durability) §f→ §eGive a Spawner Pickaxe");
-        sender.sendMessage("§8• §e/sp shop §f→ §eOpen Spawner Pickaxe Shop");
-        sender.sendMessage("§8• §e/sp reload §f→ §eReload config file");
-        sender.sendMessage("§8• §e/spawner list §f→ §eList of spawners");
-        sender.sendMessage("§8• §e/spawner [entity] (player) §7(amount) §f→ §eGive a spawner");
+        sender.sendMessage("§8• §6/ps §7(player) (durability) §f→ §eGive a Spawner Pickaxe");
+        sender.sendMessage("§8• §6/ps shop §f→ §eOpen Spawner Pickaxe Shop");
+        sender.sendMessage("§8• §6/ps fusion §f→ §eMerge pickaxes");
+        sender.sendMessage("§8• §6/ps reload §f→ §eReload config file");
+        sender.sendMessage("§8• §6/spawner list §f→ §eList of spawners");
+        sender.sendMessage("§8• §6/spawner [entity] §7(player) (amount) §f→ §eGive a spawner");
         sender.sendMessage("");
         sender.sendMessage("§7§m---------§6 SpawnerPickaxe Help §7§m---------");
-
-        return true;
+        return false;
     }
 }
