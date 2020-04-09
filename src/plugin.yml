@@ -8,7 +8,7 @@ depend:
   - Vault
 commands:
   spawnerpickaxe:
-    aliases: [sp, spickaxe]
+    aliases: [ps, spickaxe]
     description: All commands concerned with spawner pickaxe
   spawner:
     description: Show / Summon spawners

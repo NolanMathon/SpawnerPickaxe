@@ -10,4 +10,6 @@ public class InventoriesListeners implements Listener {
     public InventoriesListeners(Main main) {
         this.main = main;
     }
+
+
 }

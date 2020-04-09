@@ -1,10 +1,17 @@
-# Plugin created by HegSiS !
-# For all the next message, the color code has been supported (&) !
-# It is the third version of SpawnerPickaxe
+#############################################################################
+#                                                                           #
+#                       Plugin created by HegSiS                            #
+#       For all the next message, the color code has been supported (&)     #
+#                         SpawnerPickaxe v3.0                               #
+#                                                                           #
+#############################################################################
 
-###
-### IMPORTANT : IF YOU HAVE %durability% or %money% OR OTHER IN A MESSAGE DON'T ADD A '%'
-###
+#      / \
+#     / | \
+#    /  |  \  IMPORTANT : IF YOU HAVE %durability% or %money% OR OTHER IN A MESSAGE DON'T ADD A '%'
+#   /   •   \
+#  /_________\
+
 
 # 1.7.10 → 1.12.2 : MOB_SPAWNER
 # 1.13 → 1.15 : SPAWNER
@@ -13,6 +20,16 @@ spawner-item: SPAWNER
 # 1.7.10 → 1.12.2 : SKULL_ITEM
 # 1.13 → 1.15 : PLAYER_HEAD
 player-head-item: PLAYER_HEAD
+
+# 1.7.10 → 1.12.2 : SIGN
+# 1.13 → 1.15 : OAK_SIGN
+sign-item: OAK_SIGN
+
+#############################################################################
+#                                                                           #
+#                                Manage System                              #
+#                                                                           #
+#############################################################################
 
 #The manage menu
 manage-gui:
@@ -48,6 +65,12 @@ use:
   spawnerpickaxe_sign: true
   spawnerlist_menu: true
 
+#############################################################################
+#                                                                           #
+#                 Spawner inventory and Disabled Entities                   #
+#                                                                           #
+#############################################################################
+
 spawner-inventory:
   glass:
     item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE & data → 11
@@ -69,6 +92,60 @@ disabled-mob:
   - ENDER_DRAGON
   - SQUID
   - PARROT
+  -
+#############################################################################
+#                                                                           #
+#                  SpawnerPickaxe and SuperSpawnerPickaxe                   #
+#                                                                           #
+#############################################################################
+
+pickaxe:
+  item-type: GOLDEN_PICKAXE
+  name: "&6&lSpawnerPickaxe"
+  description:
+    - "&7Durability &7: &c%durability%"
+    - ""
+    - "&7You can broke spawner with this pickaxe !"
+
+superpickaxe:
+  item-type: DIAMOND_PICKAXE
+  name: "&b&lSuperSpawnerPickaxe"
+  description:
+    - "&7Durability &7: &c%durability%"
+    - ""
+    - "&7You can broke spawner on ennemy claim with this pickaxe !"
+
+#############################################################################
+#                                                                           #
+#                               Sign                                        #
+#                                                                           #
+#############################################################################
+
+#----- SIGN EXEMPLE -----#
+
+#Line 1 : [SPICKAXE]
+#Line 2 : Price (ex: 50)
+#Line 3 : Durability (ex: 2)
+#Line 4 : (Optionnal)
+
+#----- SIGN EXEMPLE -----#
+
+#The pickaxe sign (buy a spawnerpickaxe on a sign) AND the fusion sign
+#Please make max 15 letters and spaces on each line
+#Please don't put variable (%durability% or %price%) on the first line AND don't let the first line blank
+sign:
+  shop:
+    - "&5Spawner"
+    - "&5&lPickaxe"
+    - "&2Price&7: &c%price%"
+    - "&6Dura&7: &c%durability%"
+
+#############################################################################
+#                                                                           #
+#                     Sounds, Permissions and Messages                      #
+#                                                                           #
+#############################################################################
+
 
 # SOUNDS HERE ARE COMPATIBLE IN 1.7.10 - 1.8
 # TO USE IN 1.9 - 1.10 - 1.11 ->
@@ -94,6 +171,7 @@ messages:
   break-spawner-only: "&cYou can only break spawner !"
   spawner-in-inventory: "&7The &d%entity%&7's spawner is on your inventory."
   spawner-on-the-ground: "&7The &d%entity%&7's spawner is on the ground &cbecause your inventory is full &7!"
+  give-pickaxe: "&7You just receive a SpawnerPickaxe with &d%durability% &7of durability !"
   give-spawner: "&7You just receive &d%amount% &7spawner of &d%entity% &7!"
   give-spawner-on-the-ground: "&7You just receive &d%amount% &7spawner of &d%entity% &7! (on the ground)"
   spawner-break: "&7You just break a &d%spawner% &7spawner !"

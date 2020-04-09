@@ -46,7 +46,7 @@ public class ManagerMain {
         }
 
         int[] cell = {10, 11, 14, 15, 16, 21, 23};
-        String[] material = {"OBSIDIAN", "DIAMOND_PICKAXE"/*main.getSuperPickaxeItem().toString()*/, main.getSpawnerItem().toString(), "IRON_PICKAXE"/*main.getPickaxeItem().toString()*/, "PAPER",  main.getSpawnerItem().toString(), "STONE_BUTTON"};
+        String[] material = {"OBSIDIAN", "DIAMOND_PICKAXE"/*main.getSuperPickaxeItem().toString()*/, main.getSpawnerItem().toString(), "IRON_PICKAXE"/*main.getPickaxeItem().toString()*/, main.getSignItem().toString(),  main.getSpawnerItem().toString(), "STONE_BUTTON"};
         String[] name = new String[Option.values().length+1];
         int j=0;
         for (Option op : Option.values()) {
@@ -84,7 +84,7 @@ public class ManagerMain {
         return inv;
     }
 
-    private static String getConfigName(String configname, boolean bool, Main main) {
+    public static String getConfigName(String configname, boolean bool, Main main) {
         String name;
         if (bool) {
             name = main.getConfig().getString("manage-gui."+configname).replaceAll("&","§").replaceAll("%status%", main.getConfig().getString("manage-gui.true").replaceAll("&","§"));

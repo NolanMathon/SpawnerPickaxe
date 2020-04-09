@@ -65,7 +65,7 @@ public class SpawnerCommand implements CommandExecutor {
                     if (args.length == 3) {
                         int amount = Utils.isNumber(args[2]);
                         if (amount >= 1) {
-                            giveSpawner(target, EntityType.valueOf(args[0].toUpperCase()), amount);
+                            main.giveSpawner(target, EntityType.valueOf(args[0].toUpperCase()), amount, false);
                             return true;
                         }
 
@@ -75,7 +75,7 @@ public class SpawnerCommand implements CommandExecutor {
                     }
 
                     // Si il n'y a pas de nombre de spawners
-                    giveSpawner(target, EntityType.valueOf(args[0].toUpperCase()), 1);
+                    main.giveSpawner(target, EntityType.valueOf(args[0].toUpperCase()), 1, false);
                     return true;
                 }
 
@@ -87,7 +87,7 @@ public class SpawnerCommand implements CommandExecutor {
 
             if (sender instanceof Player) {
                 // Si il y a qu'un seul argument on donne le spawner à l'utilisateur qui a fait la commande
-                giveSpawner((Player) sender, EntityType.valueOf(args[0].toUpperCase()), 1);
+                main.giveSpawner((Player) sender, EntityType.valueOf(args[0].toUpperCase()), 1, false);
                 return true;
             } else {
                 sender.sendMessage(Utils.getConfigMessage("only-player", main));
@@ -118,23 +118,5 @@ public class SpawnerCommand implements CommandExecutor {
         return false;
     }
 
-    // Fonction qui permet de give le spawner
-    private void giveSpawner(Player p, EntityType entityType, int amount) {
-        ItemStack itemStack = new ItemStack(main.getSpawnerItem(), amount);
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        List<String> lore = new ArrayList<>();
-        lore.add("§d" + entityType.toString());
-        itemMeta.setLore(lore);
-        itemStack.setItemMeta(itemMeta);
 
-        // Si l'inventaire du joueur est full, on lui drop le spawner au sol
-        if (p.getInventory().firstEmpty() == -1) {
-            p.getWorld().dropItemNaturally(p.getLocation(), itemStack);
-            p.sendMessage(Utils.getConfigMessage("give-spawner-on-the-ground", main).replaceAll("%amount%", ""+amount).replaceAll("%entity%", ""+entityType));
-            return;
-        }
-        // Sinon on lui met dans son inventaire
-        p.getInventory().addItem(itemStack);
-        p.sendMessage(Utils.getConfigMessage("give-spawner", main).replaceAll("%amount%", ""+amount).replaceAll("%entity%", ""+entityType));
-    }
 }
