@@ -11,12 +11,9 @@ import fr.hegsis.spawnerpickaxe.utils.Utils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,9 +39,10 @@ public class Main extends JavaPlugin {
     public String entityListString; // Chaîne de caractère qui contient la liste des entités vivantes
 
     // INVENTAIRES
-    public Inventory manageInventory; // Inventaire du /spawnerpickaxe manage
+    public Inventory manageInventory; // Inventaire du /spawnerpickaxe manage ou /spawnerpickaxe gui
     public Inventory spawnerInventory; // Inventaire du /spawner ou /spawner list
     public Inventory spawnerInventoryNext; // Inventaire du /spawner ou /spawner list
+    public Inventory shopInventory; // Inventaire du /spawnerpickaxe shop
 
     @Override
     public void onEnable() {
@@ -87,29 +85,30 @@ public class Main extends JavaPlugin {
     private void setItems() {
         String material = getConfig().getString("spawner-item");
         spawnerItem = Material.getMaterial(material);
-        isMaterial(material, spawnerItem);
+        Utils.isMaterial(material, spawnerItem, this);
 
         material = getConfig().getString("player-head-item");
         playerHeadItem = Material.getMaterial(material);
-        isMaterial(material, playerHeadItem);
+        Utils.isMaterial(material, playerHeadItem, this);
 
         material = getConfig().getString("sign-item");
         signItem = Material.getMaterial(material);
-        isMaterial(material, signItem);
+        Utils.isMaterial(material, signItem, this);
 
         material = getConfig().getString("pickaxe.item-type");
         Material mat = Material.getMaterial(material);
-        isMaterial(material, mat);
+        Utils.isMaterial(material, mat, this);
         spawnerPickaxe = new SpawnerPickaxe(new ItemStack(mat));
         spawnerPickaxe.setDisplayName(getConfig().getString("pickaxe.name").replaceAll("&", "§"));
         spawnerPickaxe.setLore(Utils.convertListColorCode(getConfig().getStringList("pickaxe.description")));
     }
 
-    private void isMaterial(String material, Material mat) {
-        try {
-            if (mat != null) return;
-        } catch (NullPointerException e) { }
-        getServer().getConsoleSender().sendMessage("§4Item §c" + material + " §4isn't valid !");
+    private void setAllDefaultInventoriesAndEntities() {
+        entityList = Entities.setEntityList(this);
+        entityListString = Entities.setEntityListString(entityList);
+        manageInventory = ManagerMain.setManageInventory(this);
+        Inventories.setEntityInventoryList(this);
+        Inventories.setShopInventory(this);
     }
 
     public Material getSpawnerItem() {
@@ -127,55 +126,4 @@ public class Main extends JavaPlugin {
     public ItemStack getPickaxe() {
         return spawnerPickaxe.getPickaxe();
     }
-
-    private void setAllDefaultInventoriesAndEntities() {
-        entityList = Entities.setEntityList(this);
-        entityListString = Entities.setEntityListString(entityList);
-        manageInventory = ManagerMain.setManageInventory(this);
-        Inventories.setEntityInventoryList(this);
-    }
-
-    public void payAndGiveSpawnerPickaxe(Player p, double price, int durability) {
-        if (p.getInventory().firstEmpty() != -1) {
-            OfflinePlayer of = Bukkit.getOfflinePlayer(p.getUniqueId());
-            double playerBalance = economy.getBalance(of);
-            if (playerBalance >= price) {
-                givePickaxe(p, durability);
-                economy.withdrawPlayer(of, price);
-                Utils.sendMessage(p, "buy-pickaxe", this);
-            } else {
-                Utils.sendMessage(p, "buy-pickaxe-fail", this);
-            }
-        } else {
-            Utils.sendMessage(p, "full-inventory", this);
-        }
-    }
-
-    public void givePickaxe(Player p, int durability) {
-        SpawnerPickaxe sp = new SpawnerPickaxe(spawnerPickaxe.getPickaxe().clone());
-        sp.setDurability(durability);
-        sp.give(p);
-    }
-
-    // Fonction qui permet de give le spawner
-    public void giveSpawner(Player p, EntityType entityType, int amount, boolean onTheGround) {
-        ItemStack itemStack = new ItemStack(getSpawnerItem(), amount);
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(getConfig().getString("spawner-inventory.item-name").replaceAll("&", "§").replaceAll("%entity%", entityType.toString()));
-        List<String> lore = new ArrayList<>();
-        lore.add("§d" + entityType.toString());
-        itemMeta.setLore(lore);
-        itemStack.setItemMeta(itemMeta);
-
-        // Si l'inventaire du joueur est full, on lui drop le spawner au sol
-        if (p.getInventory().firstEmpty() == -1 || onTheGround) {
-            p.getWorld().dropItemNaturally(p.getLocation(), itemStack);
-            p.sendMessage(Utils.getConfigMessage("give-spawner-on-the-ground", this).replaceAll("%amount%", ""+amount).replaceAll("%entity%", ""+entityType));
-            return;
-        }
-        // Sinon on lui met dans son inventaire
-        p.getInventory().addItem(itemStack);
-        p.sendMessage(Utils.getConfigMessage("give-spawner", this).replaceAll("%amount%", ""+amount).replaceAll("%entity%", ""+entityType));
-    }
-
 }

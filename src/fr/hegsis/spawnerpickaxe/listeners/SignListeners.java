@@ -1,6 +1,7 @@
 package fr.hegsis.spawnerpickaxe.listeners;
 
 import fr.hegsis.spawnerpickaxe.Main;
+import fr.hegsis.spawnerpickaxe.utils.GiveItems;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -90,7 +91,7 @@ public class SignListeners implements Listener {
 
                 System.out.println("Durabilité du spawner : " + durability);
 
-                main.payAndGiveSpawnerPickaxe(p, price, durability);
+                GiveItems.payAndGiveSpawnerPickaxe(p, price, durability, main);
 
             }
         }

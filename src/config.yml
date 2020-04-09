@@ -35,7 +35,7 @@ sign-item: OAK_SIGN
 manage-gui:
   menu-name: "&6&lSpawnerPickaxe Manager"
   glass:
-    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE & data → 11
+    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
     data: 0
   faction: "&dFaction &7: %status%"
   superspawnerpickaxe: "&dSuperSpawnerPickaxe &7: %status%"
@@ -73,7 +73,7 @@ use:
 
 spawner-inventory:
   glass:
-    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE & data → 11
+    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
     data: 0
   name: "&6SpawnerListInventory"
   item: 'SPAWNER'
@@ -92,7 +92,7 @@ disabled-mob:
   - ENDER_DRAGON
   - SQUID
   - PARROT
-  -
+
 #############################################################################
 #                                                                           #
 #                  SpawnerPickaxe and SuperSpawnerPickaxe                   #
@@ -114,6 +114,37 @@ superpickaxe:
     - "&7Durability &7: &c%durability%"
     - ""
     - "&7You can broke spawner on ennemy claim with this pickaxe !"
+
+#############################################################################
+#                                                                           #
+#                               Shop                                        #
+#                                                                           #
+#############################################################################
+
+shop-inventory:
+  glass:
+    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
+    data: 0
+  name: "&6SpawnerPickaxeShop"
+  remove-item:
+    item: RED_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
+    data: 0
+  add-item:
+    item: GREEN_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
+    data: 0
+  accept-item:
+    item: GREEN_TERRACOTTA # For 1.7.10 → 1.13 : TERRACOTTA
+    data: 0
+    name: "&2Accept"
+  quit-item:
+    item: RED_TERRACOTTA # For 1.7.10 → 1.13 : TERRACOTTA
+    data: 0
+    name: "&cQuit"
+  price-item:
+    item: PAPER
+    name: "&2Price&7: &c%price%&7$"
+  money-item: "&6Money&7: &c%money%&7$"
+  price: 50
 
 #############################################################################
 #                                                                           #
@@ -139,10 +170,15 @@ sign:
     - "&5&lPickaxe"
     - "&2Price&7: &c%price%"
     - "&6Dura&7: &c%durability%"
+  fusion:
+    - "&5Spawner"
+    - "&5&lPickaxe"
+    - "&dFusion"
+    - "&2Price&7: &c%price%"
 
 #############################################################################
 #                                                                           #
-#                     Sounds, Permissions and Messages                      #
+#                                  Sounds                                   #
 #                                                                           #
 #############################################################################
 
@@ -166,7 +202,12 @@ sounds:
   on-click-sign-no-money: BLOCK_ANVIL_BREAK;true
   on-fusion-spickaxe: BLOCK_ANVIL_USE;true
 
-#All configurable messages
+#############################################################################
+#                                                                           #
+#                              Messages                                     #
+#                                                                           #
+#############################################################################
+
 messages:
   break-spawner-only: "&cYou can only break spawner !"
   spawner-in-inventory: "&7The &d%entity%&7's spawner is on your inventory."
@@ -197,7 +238,12 @@ messages:
   invalid-number: "&cThe number &4%number% &cisn't correct !"
   invalid-player: "&cPlayer &4%player% &cnot found !"
 
-#All configurable permissions
+#############################################################################
+#                                                                           #
+#                             Permissions                                   #
+#                                                                           #
+#############################################################################
+
 permissions:
   all: "spawnerpickaxe.*"
   spawnerpickaxe-help: "spawnerpickaxe.help"

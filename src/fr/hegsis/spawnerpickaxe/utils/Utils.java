@@ -112,4 +112,11 @@ public class Utils {
 
         return search;
     }
+
+    public static void isMaterial(String material, Material mat, Main main) {
+        try {
+            if (mat != null) return;
+        } catch (NullPointerException e) { }
+        main.getServer().getConsoleSender().sendMessage("§4Item §c" + material + " §4isn't valid !");
+    }
 }

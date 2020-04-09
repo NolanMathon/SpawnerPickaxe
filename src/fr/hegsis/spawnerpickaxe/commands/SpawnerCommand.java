@@ -2,6 +2,7 @@ package fr.hegsis.spawnerpickaxe.commands;
 
 import fr.hegsis.spawnerpickaxe.Main;
 import fr.hegsis.spawnerpickaxe.manager.Option;
+import fr.hegsis.spawnerpickaxe.utils.GiveItems;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -9,11 +10,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SpawnerCommand implements CommandExecutor {
 
@@ -65,7 +61,7 @@ public class SpawnerCommand implements CommandExecutor {
                     if (args.length == 3) {
                         int amount = Utils.isNumber(args[2]);
                         if (amount >= 1) {
-                            main.giveSpawner(target, EntityType.valueOf(args[0].toUpperCase()), amount, false);
+                            GiveItems.giveSpawner(target, EntityType.valueOf(args[0].toUpperCase()), amount, false, main);
                             return true;
                         }
 
@@ -75,7 +71,7 @@ public class SpawnerCommand implements CommandExecutor {
                     }
 
                     // Si il n'y a pas de nombre de spawners
-                    main.giveSpawner(target, EntityType.valueOf(args[0].toUpperCase()), 1, false);
+                    GiveItems.giveSpawner(target, EntityType.valueOf(args[0].toUpperCase()), 1, false, main);
                     return true;
                 }
 
@@ -87,7 +83,7 @@ public class SpawnerCommand implements CommandExecutor {
 
             if (sender instanceof Player) {
                 // Si il y a qu'un seul argument on donne le spawner à l'utilisateur qui a fait la commande
-                main.giveSpawner((Player) sender, EntityType.valueOf(args[0].toUpperCase()), 1, false);
+                GiveItems.giveSpawner((Player) sender, EntityType.valueOf(args[0].toUpperCase()), 1, false, main);
                 return true;
             } else {
                 sender.sendMessage(Utils.getConfigMessage("only-player", main));

@@ -2,6 +2,7 @@ package fr.hegsis.spawnerpickaxe.listeners;
 
 import fr.hegsis.spawnerpickaxe.Main;
 import fr.hegsis.spawnerpickaxe.SpawnerPickaxe;
+import fr.hegsis.spawnerpickaxe.utils.GiveItems;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -77,7 +78,7 @@ public class SpawnerBreakListeners implements Listener {
         }
 
         Utils.playSound(p, "on-spawner-break", main);
-        main.giveSpawner(p, entity, 1, true);
+        GiveItems.giveSpawner(p, entity, 1, true, main);
 
     }
 }

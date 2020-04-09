@@ -4,15 +4,20 @@ import fr.hegsis.spawnerpickaxe.Main;
 import fr.hegsis.spawnerpickaxe.SpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.manager.ManagerMain;
 import fr.hegsis.spawnerpickaxe.manager.Option;
+import fr.hegsis.spawnerpickaxe.utils.GiveItems;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 
 public class SpawnerPickaxeCommand implements CommandExecutor {
@@ -37,7 +42,7 @@ public class SpawnerPickaxeCommand implements CommandExecutor {
                     return false;
                 }
 
-                main.givePickaxe(p, 1);
+                GiveItems.givePickaxe(p, 1, main);
                 p.sendMessage(Utils.getConfigMessage("give-pickaxe", main).replaceAll("%durability%", "1"));
                 return true;
             }
@@ -76,7 +81,7 @@ public class SpawnerPickaxeCommand implements CommandExecutor {
                 }
 
                 p.sendMessage(Utils.getConfigMessage("pickaxe-fusion", main).replaceAll("%pickaxes%", "" + nbPickaxes).replaceAll("%durability%", "" + durability));
-                main.givePickaxe(p, durability);
+                GiveItems.givePickaxe(p, durability, main);
                 Utils.playSound(p, "on-fusion-spickaxe", main);
                 return true;
             }
@@ -90,20 +95,18 @@ public class SpawnerPickaxeCommand implements CommandExecutor {
                     return false;
                 }
 
-                p.sendMessage("§2En cours !");
-                return true;
-
-                /*Double money = main.economy.getBalance(p.getName());
+                OfflinePlayer of = Bukkit.getOfflinePlayer(p.getUniqueId());
+                Double money = main.economy.getBalance(of);
                 NumberFormat nf = new DecimalFormat("0.##");
                 String s = nf.format(money);
-                Inventory inv = Bukkit.createInventory((InventoryHolder) null, 27, main.spawnerpickaxes_shop_name);
-                inv.setContents(main.spawnerpickaxe_shop.getContents().clone());
+                Inventory inv = Bukkit.createInventory(null, 27, main.getConfig().getString("shop-inventory.name").replaceAll("&", "§"));
+                inv.setContents(main.shopInventory.getContents().clone());
 
-                ItemStack skull = main.playerHead(p.getName(), main.getConfig().getString("shop.money_item").replace("&", "§").replaceAll("%money%", ""+s), "PLAYER_HEAD");
+                ItemStack skull = Utils.playerHead(p.getName(), main.getConfig().getString("shop-inventory.money-item").replace("&", "§").replaceAll("%money%", ""+s), main.getPlayerHeadItem().toString(), main);
                 inv.setItem(4, skull);
                 p.openInventory(inv);
-                main.playSound(p, "on_open_spickaxe_shop");*/
-
+                Utils.playSound(p, "on-open-spickaxe-shop", main);
+                return true;
             }
 
             if (args.length == 1 && (args[0].equalsIgnoreCase("manage") || args[0].equalsIgnoreCase("gui"))) {
@@ -144,7 +147,7 @@ public class SpawnerPickaxeCommand implements CommandExecutor {
                 }
             }
 
-            main.givePickaxe(target, dura);
+            GiveItems.givePickaxe(target, dura, main);
             target.sendMessage(Utils.getConfigMessage("give-pickaxe", main).replaceAll("%durability%", "1"));
             return true;
         }
