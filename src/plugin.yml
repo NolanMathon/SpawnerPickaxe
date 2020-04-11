@@ -7,8 +7,11 @@ api-version: 1.13
 depend:
   - Vault
 commands:
+  superspawnerpickaxe:
+    aliases: [ssp, sspickaxe, supersp]
+    description: All commands concerned with super spawner pickaxe
   spawnerpickaxe:
-    aliases: [ps, spickaxe]
+    aliases: [ps, spickaxe, spawnerp]
     description: All commands concerned with spawner pickaxe
   spawner:
     description: Show / Summon spawners

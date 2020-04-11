@@ -33,9 +33,9 @@ sign-item: OAK_SIGN
 
 #The manage menu
 manage-gui:
-  menu-name: "&6&lSpawnerPickaxe Manager"
+  menu-name: "&6&lSpawnerPickaxeManager"
   glass:
-    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
+    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE && data : 15
     data: 0
   faction: "&dFaction &7: %status%"
   superspawnerpickaxe: "&dSuperSpawnerPickaxe &7: %status%"
@@ -74,12 +74,16 @@ use:
 spawner-inventory:
   name: "&6SpawnerListInventory"
   glass:
-    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
+    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE && data : 15
     data: 0
   item-name: "&5%entity%&d's spawner"
   next-page: "&e&lNext Page &7(2/2)"
   previous-page: "&e&lPrevious Page &7(1/2)"
   leave: "&c&lLeave"
+  help-item:
+    name: "&7&lHOW TO GET SPAWNER"
+    lore:
+      - "&dClick on a spawner to get it"
 
 # All disabled mob
 # BE CAREFULL, FEW MOBS CAN BE ON THE VERSION OF YOUR SERVER (ex: PARROT)
@@ -94,12 +98,36 @@ disabled-mob:
 
 #############################################################################
 #                                                                           #
+#                     Spawner Menu (On right Click)                         #
+#                                                                           #
+#############################################################################
+
+spawner-menu:
+  name: "&6SpawnerMenu"
+  glass:
+    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE && data : 15
+    data: 0
+  get-spawner:
+    name: "&6Get the spawner"
+    description:
+      - "&7Buy a spawner pickaxe"
+      - "&7Price : &c50"
+    price: 50
+  destroy-spawner:
+    name: "&cDestroy Spawner"
+    description:
+      - "&7A way to destroy spawner"
+      - "&7Price : &c70"
+    price: 70
+
+#############################################################################
+#                                                                           #
 #                  SpawnerPickaxe and SuperSpawnerPickaxe                   #
 #                                                                           #
 #############################################################################
 
 pickaxe:
-  item-type: GOLDEN_PICKAXE
+  item-type: GOLDEN_PICKAXE # For 1.7.10 → 1.13 : GOLD_PICKAXE
   name: "&6&lSpawnerPickaxe"
   description:
     - "&7Durability &7: &c%durability%"
@@ -123,20 +151,20 @@ superpickaxe:
 shop-inventory:
   name: "&6SpawnerPickaxeShop"
   glass:
-    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
+    item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE && data : 15
     data: 0
   remove-item:
-    item: RED_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
+    item: RED_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE && data : 14
     data: 0
   add-item:
-    item: GREEN_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE
+    item: GREEN_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE && data : 13
     data: 0
   accept-item:
-    item: GREEN_TERRACOTTA # For 1.7.10 → 1.13 : TERRACOTTA
+    item: GREEN_TERRACOTTA # For 1.7.10 → 1.13 : STAINED_CLAY && data : 14
     data: 0
     name: "&2Accept"
   quit-item:
-    item: RED_TERRACOTTA # For 1.7.10 → 1.13 : TERRACOTTA
+    item: RED_TERRACOTTA # For 1.7.10 → 1.13 : STAINED_CLAY && data : 13
     data: 0
     name: "&cQuit"
   price-item:
@@ -169,11 +197,6 @@ sign:
     - "&5&lPickaxe"
     - "&2Price&7: &c%price%"
     - "&6Dura&7: &c%durability%"
-  fusion:
-    - "&5Spawner"
-    - "&5&lPickaxe"
-    - "&dFusion"
-    - "&2Price&7: &c%price%"
 
 #############################################################################
 #                                                                           #
@@ -209,9 +232,11 @@ sounds:
 
 messages:
   break-spawner-only: "&cYou can only break spawner !"
+  break-protected-spawner-only: "&cYou can only break spawner in claimed or protected area !"
   spawner-in-inventory: "&7The &d%entity%&7's spawner is on your inventory."
   spawner-on-the-ground: "&7The &d%entity%&7's spawner is on the ground &cbecause your inventory is full &7!"
   give-pickaxe: "&7You just receive a SpawnerPickaxe with &d%durability% &7of durability !"
+  give-superpickaxe: "&7You just receive a SuperSpawnerPickaxe with &d%durability% &7of durability !"
   give-spawner: "&7You just receive &d%amount% &7spawner of &d%entity% &7!"
   give-spawner-on-the-ground: "&7You just receive &d%amount% &7spawner of &d%entity% &7! (on the ground)"
   spawner-break: "&7You just break a &d%spawner% &7spawner !"
@@ -238,6 +263,8 @@ messages:
   invalid-player: "&cPlayer &4%player% &cnot found !"
   option-disable: "&cOption &4%option% &cis disabled !"
   option-set: "&7Option &c%option% &7set to &c%status% &7!"
+  no-money-to-destroy: "&cYou don't have enought money to destroy this spawner !"
+  destroy-spawner: "&7You just destroy a spawner !"
 
 #############################################################################
 #                                                                           #

@@ -1,7 +1,8 @@
 package fr.hegsis.spawnerpickaxe.utils;
 
 import fr.hegsis.spawnerpickaxe.Main;
-import fr.hegsis.spawnerpickaxe.SpawnerPickaxe;
+import fr.hegsis.spawnerpickaxe.objects.SpawnerPickaxe;
+import fr.hegsis.spawnerpickaxe.objects.SuperSpawnerPickaxe;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.EntityType;
@@ -34,6 +35,12 @@ public class GiveItems {
         SpawnerPickaxe sp = new SpawnerPickaxe(main.getPickaxe().clone());
         sp.setDurability(durability);
         sp.give(p);
+    }
+
+    public static void giveSuperPickaxe(Player p, int durability, Main main) {
+        SuperSpawnerPickaxe ssp = new SuperSpawnerPickaxe(main.getSuperPickaxe().clone());
+        ssp.setDurability(durability);
+        ssp.give(p);
     }
 
     // Fonction qui permet de give le spawner

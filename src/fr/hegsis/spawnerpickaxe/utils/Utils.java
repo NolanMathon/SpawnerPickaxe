@@ -56,8 +56,8 @@ public class Utils {
     }
 
     // Permet de recupérer une tête
-    public static ItemStack playerHead(String owner, String name, String other_item, @NotNull Main main) {
-        ItemStack it = null;
+    public static ItemStack playerHead(String owner, String name, String otherItem, @NotNull Main main) {
+        ItemStack it;
         if (main.optionsUsed.get(Option.PLAYER_HEAD_IN_MENU)) {
             it = new ItemStack(main.getPlayerHeadItem(), 1, (short) 3);
             SkullMeta sm = (SkullMeta) it.getItemMeta();
@@ -65,7 +65,7 @@ public class Utils {
             sm.setDisplayName(name.replaceAll("&","§"));
             it.setItemMeta(sm);
         } else {
-            it = new ItemStack(Material.getMaterial(other_item.toUpperCase()));
+            it = new ItemStack(Material.getMaterial(otherItem.toUpperCase()));
             ItemMeta im = it.getItemMeta();
             im.setDisplayName(name.replaceAll("&", "§"));
             it.setItemMeta(im);

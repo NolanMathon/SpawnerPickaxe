@@ -1,8 +1,9 @@
 package fr.hegsis.spawnerpickaxe.listeners;
 
 import fr.hegsis.spawnerpickaxe.Main;
-import fr.hegsis.spawnerpickaxe.SpawnerPickaxe;
+import fr.hegsis.spawnerpickaxe.objects.SpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.manager.Option;
+import fr.hegsis.spawnerpickaxe.objects.SuperSpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.utils.GiveItems;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.Material;
@@ -24,11 +25,8 @@ public class SpawnerBreakListeners implements Listener {
     }
 
     @EventHandler
-    public void onSpawnerBreak(BlockBreakEvent e) {
-        // Si l'option du faction est activée
-        if (main.optionsUsed.get(Option.FACTION)) {
-            if (e.isCancelled()) return;
-        }
+    public void onSpawnerBreakBySpawnerPickaxe(BlockBreakEvent e) {
+        if (e.isCancelled()) return;
 
         Player p = e.getPlayer();
         if (p.getItemInHand() == null) return;
@@ -38,8 +36,7 @@ public class SpawnerBreakListeners implements Listener {
         ItemStack itemInHand = p.getItemInHand();
         if (!itemInHand.hasItemMeta()) return; // Si pas d'item meta
 
-        if (!itemInHand.getItemMeta().getDisplayName().equalsIgnoreCase(main.getPickaxe().getItemMeta().getDisplayName()))
-            return; // Si pas le même nom que la pioche à spawner
+        if (!itemInHand.getItemMeta().getDisplayName().equalsIgnoreCase(main.getPickaxe().getItemMeta().getDisplayName())) return; // Si pas le même nom que la pioche à spawner
 
         if (!itemInHand.getItemMeta().hasLore()) return; // Si pas de description
 
@@ -83,5 +80,72 @@ public class SpawnerBreakListeners implements Listener {
         Utils.playSound(p, "on-spawner-break", main);
         GiveItems.giveSpawner(p, entity, 1, true, main);
 
+    }
+
+    @EventHandler
+    public void onSpawnerBreakBySuperSpawnerPickaxe(BlockBreakEvent e) {
+        // Si  la susperspawnerpickaxe est désactivé
+        if (!main.optionsUsed.get(Option.SUPERSPAWNERPICKAXE)) {
+            return;
+        }
+
+        Player p = e.getPlayer();
+        if (p.getItemInHand() == null) return;
+
+        if (p.getItemInHand().getType() != main.getSuperPickaxe().getType()) return;
+
+        ItemStack itemInHand = p.getItemInHand();
+        if (!itemInHand.hasItemMeta()) return; // Si pas d'item meta
+
+        if (!itemInHand.getItemMeta().getDisplayName().equalsIgnoreCase(main.getSuperPickaxe().getItemMeta().getDisplayName())) return; // Si pas le même nom que la super pioche à spawner
+
+        if (!itemInHand.getItemMeta().hasLore()) return; // Si pas de description
+
+        if (!Utils.hasPermission(p, "pickaxe-use", main)) { // Si le joueur n'a pas la permission d'utiliser la pioche
+            Utils.sendMessage(p, "no-permission", main);
+            e.setCancelled(true);
+            return;
+        }
+
+        if (e.getBlock().getType() != main.getSpawnerItem()) { // Si l'item cassé n'est pas un spawner
+            Utils.sendMessage(p, "break-spawner-only", main);
+            e.setCancelled(true);
+            return;
+        }
+
+        if (!e.isCancelled()) { // Si l'event n'est pas annulé (qu'il n'est pas dans une zone protégé)
+            Utils.sendMessage(p, "break-protected-spawner-only", main);
+            e.setCancelled(true);
+            return;
+        }
+
+        // On récup le type de spawner
+        Block block = e.getBlock();
+        CreatureSpawner spawner = (CreatureSpawner) block.getState();
+        EntityType entity = spawner.getSpawnedType();
+
+        // On récup la dura de la pioche
+        SuperSpawnerPickaxe ssp = new SuperSpawnerPickaxe(itemInHand);
+        int durability = ssp.getDurability(main);
+
+        durability--;
+        if (durability < 0) {
+            e.setCancelled(true);
+            Utils.sendMessage(p, "durability-already-zero", main);
+            p.getInventory().setItemInHand(new ItemStack(Material.AIR));
+            return;
+        }
+
+        if (durability == 0) {
+            Utils.sendMessage(p, "pickaxe-broke", main);
+            p.getInventory().setItemInHand(new ItemStack(Material.AIR));
+        } else {
+            ssp.removeDurability(1, main);
+            p.sendMessage(Utils.getConfigMessage("pickaxe-less-one-durability", main).replaceAll("%durability%", "" + durability));
+        }
+
+        Utils.playSound(p, "on-spawner-break", main);
+        e.getBlock().setType(Material.AIR);
+        GiveItems.giveSpawner(p, entity, 1, true, main);
     }
 }

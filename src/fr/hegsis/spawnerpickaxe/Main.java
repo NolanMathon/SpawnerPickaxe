@@ -2,9 +2,12 @@ package fr.hegsis.spawnerpickaxe;
 
 import fr.hegsis.spawnerpickaxe.commands.SpawnerCommand;
 import fr.hegsis.spawnerpickaxe.commands.SpawnerPickaxeCommand;
+import fr.hegsis.spawnerpickaxe.commands.SuperSpawnerPickaxeCommand;
 import fr.hegsis.spawnerpickaxe.listeners.*;
 import fr.hegsis.spawnerpickaxe.manager.ManagerMain;
 import fr.hegsis.spawnerpickaxe.manager.Option;
+import fr.hegsis.spawnerpickaxe.objects.SpawnerPickaxe;
+import fr.hegsis.spawnerpickaxe.objects.SuperSpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.utils.Entities;
 import fr.hegsis.spawnerpickaxe.utils.Inventories;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
@@ -33,6 +36,7 @@ public class Main extends JavaPlugin {
     private Material playerHeadItem;
     private Material signItem;
     private SpawnerPickaxe spawnerPickaxe;
+    private SuperSpawnerPickaxe superSpawnerPickaxe;
 
     // ENTITEES
     public List<EntityType> entityList = new ArrayList<>(); // Liste des entités vivantes
@@ -43,6 +47,7 @@ public class Main extends JavaPlugin {
     public Inventory spawnerInventory; // Inventaire du /spawner ou /spawner list
     public Inventory spawnerInventoryNext; // Inventaire du /spawner ou /spawner list
     public Inventory shopInventory; // Inventaire du /spawnerpickaxe shop
+    public Inventory rightClickSpawnerInventory; // Inventaire quand le joueur fait un clique droit sur un spawner
 
     @Override
     public void onEnable() {
@@ -59,6 +64,7 @@ public class Main extends JavaPlugin {
         registerEvents();
         getCommand("spawner").setExecutor(new SpawnerCommand(this));
         getCommand("spawnerpickaxe").setExecutor(new SpawnerPickaxeCommand(this));
+        getCommand("superspawnerpickaxe").setExecutor(new SuperSpawnerPickaxeCommand(this));
 
         this.getServer().getConsoleSender().sendMessage("§7SpawnerPickaxe §5→ §aON §f§l(By HegSiS)");
     }
@@ -79,6 +85,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new SignListeners(this), this);
         pm.registerEvents(new SpawnerBlastListeners(this), this);
         pm.registerEvents(new SpawnerBreakListeners(this), this);
+        pm.registerEvents(new SpawnerClickListeners(this), this);
         pm.registerEvents(new SpawnerPlaceListeners(this), this);
     }
 
@@ -101,6 +108,13 @@ public class Main extends JavaPlugin {
         spawnerPickaxe = new SpawnerPickaxe(new ItemStack(mat));
         spawnerPickaxe.setDisplayName(getConfig().getString("pickaxe.name").replaceAll("&", "§"));
         spawnerPickaxe.setLore(Utils.convertListColorCode(getConfig().getStringList("pickaxe.description")));
+
+        material = getConfig().getString("superpickaxe.item-type");
+        mat = Material.getMaterial(material);
+        Utils.isMaterial(material, mat, this);
+        superSpawnerPickaxe = new SuperSpawnerPickaxe(new ItemStack(mat));
+        superSpawnerPickaxe.setDisplayName(getConfig().getString("superpickaxe.name").replaceAll("&", "§"));
+        superSpawnerPickaxe.setLore(Utils.convertListColorCode(getConfig().getStringList("superpickaxe.description")));
     }
 
     public void setAllDefaultInventoriesAndEntities() {
@@ -109,6 +123,7 @@ public class Main extends JavaPlugin {
         manageInventory = ManagerMain.setManageInventory(this);
         Inventories.setEntityInventoryList(this);
         Inventories.setShopInventory(this);
+        Inventories.setRightClickSpawnerInventory(this);
     }
 
     public Material getSpawnerItem() {
@@ -126,4 +141,6 @@ public class Main extends JavaPlugin {
     public ItemStack getPickaxe() {
         return spawnerPickaxe.getPickaxe();
     }
+
+    public ItemStack getSuperPickaxe() { return superSpawnerPickaxe.getPickaxe(); }
 }

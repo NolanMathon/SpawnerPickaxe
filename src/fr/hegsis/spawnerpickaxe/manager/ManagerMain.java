@@ -17,10 +17,20 @@ public class ManagerMain {
         for (Option op : Option.values()) {
             main.optionsUsed.put(op, main.getConfig().getBoolean("use."+op.toString().toLowerCase()));
         }
+
+        if (!main.optionsUsed.get(Option.FACTION) && main.optionsUsed.get(Option.SUPERSPAWNERPICKAXE)) {
+            setOption(main, Option.SUPERSPAWNERPICKAXE, false);
+        }
     }
 
     public static boolean setOption(@NotNull Main main, Option option, boolean value) {
         if (main.optionsUsed.get(option) != value) {
+            // Si on désactive l'option faction alors on désactive la super spawner pickaxe
+            if (option == Option.FACTION && !value) {
+                if (main.optionsUsed.get(Option.SUPERSPAWNERPICKAXE)) {
+                    setOption(main, Option.SUPERSPAWNERPICKAXE, false);
+                }
+            }
             main.optionsUsed.replace(option, value);
             main.getConfig().set("use."+option.toString().toLowerCase(), value);
             main.reloadConfig();
@@ -55,6 +65,7 @@ public class ManagerMain {
                 j++;
             }
         }
+
         name[j] = main.getConfig().getString("manage-gui.reload-config-file").replaceAll("&","§");
 
         for (int i=0; i<cell.length; i++) {
@@ -77,10 +88,7 @@ public class ManagerMain {
         it = Utils.playerHead("MHF_Question",  main.getConfig().getString("manage-gui.help-item.name").replaceAll("&","§"), "PAPER", main);
         im = it.getItemMeta();
         List<String> lore = main.getConfig().getStringList("manage-gui.help-item.lore");
-        for (int i=0; i<lore.size(); i++) {
-            lore.set(i, lore.get(i).replaceAll("&", "§"));
-        }
-        im.setLore(lore);
+        im.setLore(Utils.convertListColorCode(lore));
         it.setItemMeta(im);
         inv.setItem(31, it);
 

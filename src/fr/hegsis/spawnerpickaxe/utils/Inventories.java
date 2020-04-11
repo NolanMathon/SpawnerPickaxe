@@ -1,7 +1,7 @@
 package fr.hegsis.spawnerpickaxe.utils;
 
 import fr.hegsis.spawnerpickaxe.Main;
-import fr.hegsis.spawnerpickaxe.SpawnerPickaxe;
+import fr.hegsis.spawnerpickaxe.objects.SpawnerPickaxe;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -25,6 +25,7 @@ public class Inventories {
         ItemMeta spawnerIm;
         boolean multipage = false;
         int nb_ent = 0;
+
         for (EntityType e : main.entityList) {
             //spawnerIt = Utils.playerHead("MHF_" + (e.name().replace("_", "")).toUpperCase(), main.getConfig().getString("spawner-inventory.item-name").replaceAll("%entity%", e.name()), main.getSpawnerItem().toString(), main);
 
@@ -57,11 +58,20 @@ public class Inventories {
             }
         }
 
+        ItemStack it = Utils.playerHead("MHF_Question",  main.getConfig().getString("spawner-inventory.help-item.name").replaceAll("&","§"), "PAPER", main);
+        ItemMeta im = it.getItemMeta();
+        List<String> lore = main.getConfig().getStringList("spawner-inventory.help-item.lore");
+        im.setLore(Utils.convertListColorCode(lore));
+        it.setItemMeta(im);
+        main.spawnerInventory.setItem(53, it);
+
         spawnerIt = Utils.playerHead("MHF_Exclamation", main.getConfig().getString("spawner-inventory.leave"), "BARRIER", main);
 
         if (multipage) {
             main.spawnerInventory.setItem(45, spawnerIt);
             main.spawnerInventoryNext.setItem(45, spawnerIt);
+
+            main.spawnerInventoryNext.setItem(53, it);
 
             // On met les tête page suivante et précédentes
             main.spawnerInventory.setItem(49, Utils.playerHead("MHF_ArrowRight", main.getConfig().getString("spawner-inventory.next-page"), "ARROW", main));
@@ -136,4 +146,36 @@ public class Inventories {
         it.setItemMeta(im);
         main.shopInventory.setItem(23, it);
     }
+
+    public static void setRightClickSpawnerInventory(Main main) {
+        main.rightClickSpawnerInventory = Bukkit.createInventory(null, 27, main.getConfig().getString("spawner-menu.name").replaceAll("&", "§"));
+
+        ItemStack it;
+        ItemMeta im;
+
+        // On met les vitres noirs
+        it = new ItemStack(Material.getMaterial(main.getConfig().getString("spawner-menu.glass.item")), 1, (short) main.getConfig().getInt("spawner-menu.glass.data"));
+        im = it.getItemMeta();
+        im.setDisplayName(" ");
+        it.setItemMeta(im);
+        for (int i=0; i<27; i++) {
+            main.rightClickSpawnerInventory.setItem(i, it);
+        }
+
+        // Item pour récupérer le spawner
+        it = main.getPickaxe().clone();
+        im = it.getItemMeta();
+        im.setDisplayName(main.getConfig().getString("spawner-menu.get-spawner.name").replaceAll("&", "§"));
+        im.setLore(Utils.convertListColorCode(main.getConfig().getStringList("spawner-menu.get-spawner.description")));
+        it.setItemMeta(im);
+        main.rightClickSpawnerInventory.setItem(12, it);
+
+        // Item pour détruire le spawner
+        it = Utils.playerHead("MHF_TNT2", main.getConfig().getString("spawner-menu.destroy-spawner.name"), "TNT", main);
+        im = it.getItemMeta();
+        im.setLore(Utils.convertListColorCode(main.getConfig().getStringList("spawner-menu.destroy-spawner.description")));
+        it.setItemMeta(im);
+        main.rightClickSpawnerInventory.setItem(14, it);
+    }
+
 }

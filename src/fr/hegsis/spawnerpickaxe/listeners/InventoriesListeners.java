@@ -1,14 +1,11 @@
 package fr.hegsis.spawnerpickaxe.listeners;
 
 import fr.hegsis.spawnerpickaxe.Main;
-import fr.hegsis.spawnerpickaxe.SpawnerPickaxe;
-import fr.hegsis.spawnerpickaxe.manager.ManagerMain;
+import fr.hegsis.spawnerpickaxe.objects.SpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.manager.Option;
 import fr.hegsis.spawnerpickaxe.utils.GiveItems;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,6 +15,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.List;
 
 
 public class InventoriesListeners implements Listener {
@@ -37,6 +36,49 @@ public class InventoriesListeners implements Listener {
 
         /*****************************************************************
          *
+         *                  RIGHT CLICK SPAWNER MENU
+         *
+         *****************************************************************/
+
+        if (e.getView().getTitle().equalsIgnoreCase(main.getConfig().getString("spawner-menu.name").replaceAll("&", "§"))) {
+            e.setCancelled(true);
+
+            if (e.getClickedInventory() == p.getInventory()) return;
+            if (clickItem == null) return;
+            if (!clickItem.hasItemMeta()) return;
+
+            // Si l'item cliqué est celui qui permet d'acheter une pioche à spawner
+            if (clickItem.getType() == main.getPickaxe().getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(main.rightClickSpawnerInventory.getItem(12).getItemMeta().getDisplayName())) {
+                GiveItems.payAndGiveSpawnerPickaxe(p, main.getConfig().getInt("spawner-menu.get-spawner.price"), 1, main);
+                p.closeInventory();
+                return;
+            }
+
+            // Si l'item cliqué est celui qui permet de détruire le spawner
+            if (clickItem.getType() == main.rightClickSpawnerInventory.getItem(14).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(main.rightClickSpawnerInventory.getItem(14).getItemMeta().getDisplayName())) {
+                OfflinePlayer of = Bukkit.getOfflinePlayer(p.getUniqueId());
+                double balance, price;
+                balance = main.economy.getBalance(of);
+                price = main.getConfig().getInt("spawner-menu.destroy-spawner.price");
+                if (price > balance) {
+                    Utils.sendMessage(p, "no-money-to-destroy", main);
+                    p.closeInventory();
+                    return;
+                }
+
+                main.economy.withdrawPlayer(of, price);
+                Utils.sendMessage(p, "destroy-spawner", main);
+                List<String> lore = e.getInventory().getItem(4).getItemMeta().getLore();
+                Location loc = new Location(p.getWorld(), Utils.isNumber(lore.get(0)), Utils.isNumber(lore.get(1)), Utils.isNumber(lore.get(2)));
+                loc.getBlock().setType(Material.AIR);
+                p.closeInventory();
+                return;
+            }
+        }
+
+
+        /*****************************************************************
+         *
          *                     SPAWNER LIST MENU
          *
          *****************************************************************/
@@ -53,6 +95,8 @@ public class InventoriesListeners implements Listener {
                     p.closeInventory();
                     return;
                 }
+
+                if (clickItem.getType() == main.getPlayerHeadItem() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(main.spawnerInventory.getItem(53).getItemMeta().getDisplayName())) return;
 
                 if ((clickItem.getType() == main.getPlayerHeadItem() || clickItem.getType() == Material.ARROW)
                         && (clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(main.getConfig().getString("spawner-inventory.next-page").replaceAll("&", "§"))
@@ -105,52 +149,14 @@ public class InventoriesListeners implements Listener {
 
             if (e.getClick() != ClickType.LEFT && e.getClick() != ClickType.RIGHT) return;
 
-            // Si le joueur clique sur l'utilisation du plugin faction
-            if (clickItem.getType() == manageMenu.getItem(10).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(manageMenu.getItem(10).getItemMeta().getDisplayName())) {
-                switchOptionMode(Option.FACTION, e.getClick(), 10, e.getInventory(), p);
-                return;
-            }
-
-            // Si le joueur clique sur l'utilisation de la superspawnerpickaxe
-            if (clickItem.getType() == manageMenu.getItem(11).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(manageMenu.getItem(11).getItemMeta().getDisplayName())) {
-                switchOptionMode(Option.SUPERSPAWNERPICKAXE, e.getClick(), 11, e.getInventory(), p);
-                return;
-            }
-
-            // Si le joueur clique sur l'utilisation de la tnt qui casse les spawners
-            if (clickItem.getType() == manageMenu.getItem(12).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(manageMenu.getItem(12).getItemMeta().getDisplayName())) {
-                switchOptionMode(Option.TNT_BREAK_SPAWNER, e.getClick(), 12, e.getInventory(), p);
-                return;
-            }
-
-            // Si le joueur clique sur l'utilisation des têtes de joueurs dans les menus
-            if (clickItem.getType() == manageMenu.getItem(13).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(manageMenu.getItem(13).getItemMeta().getDisplayName())) {
-                switchOptionMode(Option.PLAYER_HEAD_IN_MENU, e.getClick(), 13, e.getInventory(), p);
-                return;
-            }
-
-            // Si le joueur clique sur l'utilisation d'un menu quand tu cliques sur un spawner
-            if (clickItem.getType() == manageMenu.getItem(14).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(manageMenu.getItem(14).getItemMeta().getDisplayName())) {
-                switchOptionMode(Option.RIGHT_CLICK_SPAWNER_MENU, e.getClick(), 14, e.getInventory(), p);
-                return;
-            }
-
-            // Si le joueur clique sur l'utilisation du shop de spawnerpickaxe
-            if (clickItem.getType() == manageMenu.getItem(15).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(manageMenu.getItem(15).getItemMeta().getDisplayName())) {
-                switchOptionMode(Option.SPAWNERPICKAXE_SHOP, e.getClick(), 15, e.getInventory(), p);
-                return;
-            }
-
-            // Si le joueur clique sur l'utilisation du shop via des panneaux
-            if (clickItem.getType() == manageMenu.getItem(16).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(manageMenu.getItem(16).getItemMeta().getDisplayName())) {
-                switchOptionMode(Option.SPAWNERPICKAXE_SIGN, e.getClick(), 16, e.getInventory(), p);
-                return;
-            }
-
-            // Si le joueur clique sur l'utilisation du menu des spawners (/spawner)
-            if (clickItem.getType() == manageMenu.getItem(21).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(manageMenu.getItem(21).getItemMeta().getDisplayName())) {
-                switchOptionMode(Option.SPAWNERLIST_MENU, e.getClick(), 21, e.getInventory(), p);
-                return;
+            int[] emplacement = new int[] {10, 11, 12, 13, 14, 15, 16, 21};
+            int i = 0;
+            for (Option op : Option.values()) {
+                if (clickItem.getType() == manageMenu.getItem(emplacement[i]).getType() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase(manageMenu.getItem(emplacement[i]).getItemMeta().getDisplayName())) {
+                    switchOptionMode(op, e.getClick(), emplacement[i], e.getInventory(), p);
+                    return;
+                }
+                i++;
             }
 
             return;
@@ -236,9 +242,20 @@ public class InventoriesListeners implements Listener {
         // Si le status est le même que l'actuel
         if (main.optionsUsed.get(option) == newStatus) return;
 
+        // Si on désactive l'option faction alors on désactive la super spawner pickaxe
+        if (option == Option.FACTION && !newStatus) {
+            if (main.optionsUsed.get(Option.SUPERSPAWNERPICKAXE)) {
+                switchOptionMode (Option.SUPERSPAWNERPICKAXE, clickType, 11, inv, p);
+            }
+        }
+
+        // Si on veut activé l'option super spawner pickaxe alors que le faction est désactivé
+        if (option == Option.SUPERSPAWNERPICKAXE && newStatus && main.optionsUsed.get(Option.FACTION)) return;
+
         main.optionsUsed.replace(option, newStatus);
         main.getConfig().set("use."+option.toString().toLowerCase(), newStatus);
         main.saveConfig();
+        main.reloadConfig();
 
         if (option == Option.PLAYER_HEAD_IN_MENU) {
             p.closeInventory();
