@@ -153,7 +153,7 @@ public class SpawnerPickaxeCommand implements CommandExecutor {
             }
 
             GiveItems.givePickaxe(target, dura, main);
-            target.sendMessage(Utils.getConfigMessage("give-pickaxe", main).replaceAll("%durability%", "1"));
+            target.sendMessage(Utils.getConfigMessage("give-pickaxe", main).replaceAll("%durability%", ""+dura));
             return true;
         }
 

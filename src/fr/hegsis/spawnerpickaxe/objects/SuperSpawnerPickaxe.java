@@ -104,7 +104,7 @@ public class SuperSpawnerPickaxe {
     }
 
     public void addEnchant() {
-        superPickaxeMeta.spigot().setUnbreakable(true);
+        //superPickaxeMeta.spigot().setUnbreakable(true);
         superPickaxeMeta.addEnchant(Enchantment.DURABILITY, 3, true);
         superPickaxeMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         superPickaxeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

@@ -21,15 +21,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://D:/commandes-minecraft/dependencies/1.8/Factions.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://D:/commandes-minecraft/dependencies/1.8/Vault.jar!/" />
         </CLASSES>
         <JAVADOC />

@@ -104,7 +104,7 @@ public class SpawnerPickaxe {
     }
 
     public void addEnchant() {
-        pickaxeMeta.spigot().setUnbreakable(true);
+        //pickaxeMeta.spigot().setUnbreakable(true);
         pickaxeMeta.addEnchant(Enchantment.DURABILITY, 3, true);
         pickaxeMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         pickaxeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
