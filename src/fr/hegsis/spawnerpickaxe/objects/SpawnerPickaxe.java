@@ -78,7 +78,7 @@ public class SpawnerPickaxe {
         int durability = getDurability(main);
         List<String> originalLore = Utils.convertListColorCode(main.getConfig().getStringList("pickaxe.description"));
         setLore(originalLore);
-        pickaxeMeta.spigot().setUnbreakable(true);
+        //pickaxeMeta.spigot().setUnbreakable(true);
         create();
         setDurability(durability - removeDurability);
     }

@@ -3,6 +3,7 @@ package fr.hegsis.spawnerpickaxe.listeners;
 import fr.hegsis.spawnerpickaxe.Main;
 import fr.hegsis.spawnerpickaxe.manager.Option;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
@@ -54,5 +55,23 @@ public class SpawnerClickListeners implements Listener {
         inv.setContents(main.rightClickSpawnerInventory.getContents().clone());
         inv.setItem(4, it);
         p.openInventory(inv);
+    }
+
+    @EventHandler
+    public void onRightClickWithEgg(PlayerInteractEvent e) {
+        if (e.isCancelled()) return;
+
+        if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
+        Block block = e.getClickedBlock();
+        if (block.getType() != main.getSpawnerItem()) return;
+
+        Player p = e.getPlayer();
+        if (p.getItemInHand() == null) return;
+
+        ItemStack item = p.getItemInHand();
+        if (!item.getType().toString().contains("EGG")) return;
+
+        e.setCancelled(true);
     }
 }
