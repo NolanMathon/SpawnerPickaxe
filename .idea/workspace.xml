@@ -17,22 +17,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/listeners/InventoriesListeners.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="30" column="52" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="52" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/listeners/SpawnerClickListeners.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1031">
-              <caret line="71" column="43" lean-forward="true" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
+            <state relative-caret-position="884">
+              <caret line="71" column="43" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -43,17 +31,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/manager/Option.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+            <state relative-caret-position="204">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/commands/SpawnerCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1201">
-              <caret line="106" column="93" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="93" />
+            <state relative-caret-position="391">
+              <caret line="46" column="64" lean-forward="true" selection-start-line="46" selection-start-column="64" selection-end-line="46" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,10 +50,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/utils/GiveItems.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+            <state relative-caret-position="1082">
+              <caret line="284" column="14" lean-forward="true" selection-start-line="284" selection-start-column="2" selection-end-line="284" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -97,8 +94,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/plugin.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+            <state relative-caret-position="17">
+              <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -106,7 +103,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/objects/SpawnerPickaxe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
+            <state relative-caret-position="544">
               <caret line="45" selection-start-line="45" selection-end-line="45" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -148,14 +145,11 @@
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/manager/OptionsType.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/manager/Options.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/utils/Entities.java" />
-        <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/manager/Option.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/listeners/SpawnerBlastListeners.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/listeners/SpawnerPlaceListeners.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/listeners/SignListeners.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/SpawnerPickaxe.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/utils/Utils.java" />
-        <option value="$PROJECT_DIR$/src/plugin.yml" />
-        <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/commands/SpawnerCommand.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/commands/SuperSpawnerPickaxeCommand.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/utils/GiveItems.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/manager/ManagerMain.java" />
@@ -167,16 +161,19 @@
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/objects/SuperSpawnerPickaxe.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/commands/SpawnerPickaxeCommand.java" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/objects/SpawnerPickaxe.java" />
-        <option value="$PROJECT_DIR$/src/config.yml" />
         <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/listeners/SpawnerClickListeners.java" />
+        <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/manager/Option.java" />
+        <option value="$PROJECT_DIR$/src/plugin.yml" />
+        <option value="$PROJECT_DIR$/src/config.yml" />
+        <option value="$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/commands/SpawnerCommand.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="66" />
-    <option name="y" value="-12" />
-    <option name="width" value="1932" />
-    <option name="height" value="1052" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="2576" />
+    <option name="height" value="1416" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -241,8 +238,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -250,7 +247,7 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587665453037" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587665597514" />
     <property name="last_opened_file_path" value="D:/commandes-minecraft/projects/HardFight/[LordFight] Faction" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -285,7 +282,7 @@
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29213035" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29689986" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -431,16 +428,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/utils/GiveItems.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="48" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/listeners/InventoriesListeners.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -451,10 +438,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/manager/Option.java">
+    <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/listeners/SpawnerClickListeners.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        <state relative-caret-position="884">
+          <caret line="71" column="43" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -478,10 +468,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/plugin.yml">
+    <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/objects/SpawnerPickaxe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+        <state relative-caret-position="544">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -495,37 +488,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.yml">
+    <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/utils/GiveItems.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+        <state relative-caret-position="85">
+          <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/objects/SpawnerPickaxe.java">
+    <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/manager/Option.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1082">
+          <caret line="284" column="14" lean-forward="true" selection-start-line="284" selection-start-column="2" selection-end-line="284" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/commands/SpawnerCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1201">
-          <caret line="106" column="93" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="93" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/hegsis/spawnerpickaxe/listeners/SpawnerClickListeners.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1031">
-          <caret line="71" column="43" lean-forward="true" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
+        <state relative-caret-position="391">
+          <caret line="46" column="64" lean-forward="true" selection-start-line="46" selection-start-column="64" selection-end-line="46" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -41,6 +41,14 @@ public class SpawnerCommand implements CommandExecutor {
 
         if (args.length <= 3) {
 
+            if (sender instanceof Player) {
+                Player p = (Player) sender;
+                if (!Utils.hasPermission(p, "spawner-give", main)) {
+                    Utils.sendMessage(p, "no-permission", main);
+                    return false;
+                }
+            }
+
             // On check si l'entitée écrit par le joueur existe
             try {
                 EntityType.valueOf(args[0].toUpperCase());
