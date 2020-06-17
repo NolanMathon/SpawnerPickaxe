@@ -1,6 +1,8 @@
 package fr.hegsis.spawnerpickaxe.manager;
 
 import fr.hegsis.spawnerpickaxe.Main;
+import fr.hegsis.spawnerpickaxe.objects.SpawnerPickaxe;
+import fr.hegsis.spawnerpickaxe.objects.SuperSpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -103,5 +105,35 @@ public class ManagerMain {
             name = main.getConfig().getString("manage-gui."+configname).replaceAll("&","§").replaceAll("%status%", main.getConfig().getString("manage-gui.false").replaceAll("&","§"));
         }
         return name;
+    }
+
+    public static void setDefaultItems(Main main) {
+        String material = main.getConfig().getString("spawner-item");
+        Material spawnerItem = Material.getMaterial(material);
+        Utils.isMaterial(material, spawnerItem, main);
+
+        material = main.getConfig().getString("player-head-item");
+        Material playerHeadItem = Material.getMaterial(material);
+        Utils.isMaterial(material, playerHeadItem, main);
+
+        material = main.getConfig().getString("sign-item");
+        Material signItem = Material.getMaterial(material);
+        Utils.isMaterial(material, signItem, main);
+
+        material = main.getConfig().getString("pickaxe.item-type");
+        Material mat = Material.getMaterial(material);
+        Utils.isMaterial(material, mat, main);
+        SpawnerPickaxe spawnerPickaxe = new SpawnerPickaxe(new ItemStack(mat));
+        spawnerPickaxe.setDisplayName(main.getConfig().getString("pickaxe.name").replaceAll("&", "§"));
+        spawnerPickaxe.setLore(Utils.convertListColorCode(main.getConfig().getStringList("pickaxe.description")));
+
+        material = main.getConfig().getString("superpickaxe.item-type");
+        mat = Material.getMaterial(material);
+        Utils.isMaterial(material, mat, main);
+        SuperSpawnerPickaxe superSpawnerPickaxe = new SuperSpawnerPickaxe(new ItemStack(mat));
+        superSpawnerPickaxe.setDisplayName(main.getConfig().getString("superpickaxe.name").replaceAll("&", "§"));
+        superSpawnerPickaxe.setLore(Utils.convertListColorCode(main.getConfig().getStringList("superpickaxe.description")));
+
+        main.setItems(spawnerItem, playerHeadItem, signItem, spawnerPickaxe, superSpawnerPickaxe);
     }
 }

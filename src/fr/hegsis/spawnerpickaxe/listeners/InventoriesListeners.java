@@ -259,7 +259,7 @@ public class InventoriesListeners implements Listener {
 
         if (option == Option.PLAYER_HEAD_IN_MENU) {
             p.closeInventory();
-            main.setAllDefaultInventoriesAndEntities();
+            main.setDefaultInventories();
         } else {
             ItemStack it = inv.getItem(emplacement);
             ItemMeta im = it.getItemMeta();

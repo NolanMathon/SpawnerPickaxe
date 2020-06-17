@@ -16,14 +16,17 @@ import java.util.List;
 
 public class Utils {
 
+    // Retourne si le joueur à une permission passé en paramètre
     public static boolean hasPermission(@NotNull Player p, String path, @NotNull Main main) {
         return (p.hasPermission(main.getConfig().getString("permissions.all")) || p.hasPermission(main.getConfig().getString("permissions."+path)));
     }
 
+    // Fonction permetttant d'envoyer un message (contenu dans le fichier config.yml) à un joueur
     public static void sendMessage(@NotNull Player p, String path, @NotNull Main main) {
         p.sendMessage(main.getConfig().getString("messages."+path).replaceAll("&", "§"));
     }
 
+    // Fonction qui retourne un des messages du fichier de configuration
     @NotNull
     public static String getConfigMessage(String path, @NotNull Main main) {
         return main.getConfig().getString("messages."+path).replaceAll("&", "§");
@@ -73,6 +76,7 @@ public class Utils {
         return it;
     }
 
+    // Fonction qui retourne une liste de String qui ne contient plus de caractères &
     @Contract("_ -> param1")
     public static List<String> convertListColorCode(@NotNull List<String> lore) {
         for (int i=0; i<lore.size(); i++) {
@@ -113,6 +117,7 @@ public class Utils {
         return search;
     }
 
+    // Fonction qui permet de vérifier si l'item est bien un item
     public static void isMaterial(String material, Material mat, Main main) {
         try {
             if (mat != null) return;

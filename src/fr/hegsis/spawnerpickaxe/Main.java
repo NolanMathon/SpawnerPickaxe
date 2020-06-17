@@ -10,7 +10,7 @@ import fr.hegsis.spawnerpickaxe.objects.SpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.objects.SuperSpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.utils.Entities;
 import fr.hegsis.spawnerpickaxe.utils.Inventories;
-import fr.hegsis.spawnerpickaxe.utils.Utils;
+import fr.hegsis.spawnerpickaxe.utils.file.yaml.YamlFileUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -29,18 +29,21 @@ import java.util.Map;
 public class Main extends JavaPlugin {
 
     public static Economy economy = null;
+    private static Main instance = null;
+    public static Main getInstance() { return instance; }
 
     // GENERAL
     public Map<Option, Boolean> optionsUsed = new HashMap<>(); // Map contenant les options du plugin
-    private Material spawnerItem;
-    private Material playerHeadItem;
-    private Material signItem;
-    private SpawnerPickaxe spawnerPickaxe;
-    private SuperSpawnerPickaxe superSpawnerPickaxe;
+    private Material spawnerItem; // Item du spawner
+    private Material playerHeadItem; // Item de la tête du joueur
+    private Material signItem; // Item du panneau
+    private SpawnerPickaxe spawnerPickaxe; // Item de la pioche à spawner
+    private SuperSpawnerPickaxe superSpawnerPickaxe; // Item de la super pioche à spawner
 
     // ENTITEES
     public List<EntityType> entityList = new ArrayList<>(); // Liste des entités vivantes
     public String entityListString; // Chaîne de caractère qui contient la liste des entités vivantes
+    public Map<EntityType, String> entityMapName; // Map contenant chaque entité avec son nom modifié
 
     // INVENTAIRES
     public Inventory manageInventory; // Inventaire du /spawnerpickaxe manage ou /spawnerpickaxe gui
@@ -52,19 +55,20 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        instance = this;
+
         if(!setupEconomy()) {
             getLogger().severe("§4Economy plugin needed !");
         }
 
         saveDefaultConfig();
-        setItems();
-        ManagerMain.getOptions(this);
-        setAllDefaultInventoriesAndEntities();
+        ManagerMain.setDefaultItems(this); // Permet de définir les items
+        ManagerMain.getOptions(this); // Permet de récupérer le statut des options (true ou false)
+        setDefaultEntities(); // Permet de définir la liste des entités
+        setDefaultInventories(); // Permet de définit la liste des inventaires
+        loadEntityFile(); // Permet de charger le fichier des entités (ou de le créer s'il n'existe pas)
 
-        registerEvents();
-        getCommand("spawner").setExecutor(new SpawnerCommand(this));
-        getCommand("spawnerpickaxe").setExecutor(new SpawnerPickaxeCommand(this));
-        getCommand("superspawnerpickaxe").setExecutor(new SuperSpawnerPickaxeCommand(this));
+        registerEventsAndCommands(); // Permet d'enregistrer les events
 
         this.getServer().getConsoleSender().sendMessage("§7SpawnerPickaxe §5→ §aON §f§l(By HegSiS)");
     }
@@ -79,7 +83,7 @@ public class Main extends JavaPlugin {
     }
 
     // On register les events
-    private void registerEvents() {
+    private void registerEventsAndCommands() {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new InventoriesListeners(this), this);
         pm.registerEvents(new SignListeners(this), this);
@@ -87,43 +91,41 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new SpawnerBreakListeners(this), this);
         pm.registerEvents(new SpawnerClickListeners(this), this);
         pm.registerEvents(new SpawnerPlaceListeners(this), this);
+
+        getCommand("spawner").setExecutor(new SpawnerCommand(this));
+        getCommand("spawnerpickaxe").setExecutor(new SpawnerPickaxeCommand(this));
+        getCommand("superspawnerpickaxe").setExecutor(new SuperSpawnerPickaxeCommand(this));
     }
 
-    private void setItems() {
-        String material = getConfig().getString("spawner-item");
-        spawnerItem = Material.getMaterial(material);
-        Utils.isMaterial(material, spawnerItem, this);
-
-        material = getConfig().getString("player-head-item");
-        playerHeadItem = Material.getMaterial(material);
-        Utils.isMaterial(material, playerHeadItem, this);
-
-        material = getConfig().getString("sign-item");
-        signItem = Material.getMaterial(material);
-        Utils.isMaterial(material, signItem, this);
-
-        material = getConfig().getString("pickaxe.item-type");
-        Material mat = Material.getMaterial(material);
-        Utils.isMaterial(material, mat, this);
-        spawnerPickaxe = new SpawnerPickaxe(new ItemStack(mat));
-        spawnerPickaxe.setDisplayName(getConfig().getString("pickaxe.name").replaceAll("&", "§"));
-        spawnerPickaxe.setLore(Utils.convertListColorCode(getConfig().getStringList("pickaxe.description")));
-
-        material = getConfig().getString("superpickaxe.item-type");
-        mat = Material.getMaterial(material);
-        Utils.isMaterial(material, mat, this);
-        superSpawnerPickaxe = new SuperSpawnerPickaxe(new ItemStack(mat));
-        superSpawnerPickaxe.setDisplayName(getConfig().getString("superpickaxe.name").replaceAll("&", "§"));
-        superSpawnerPickaxe.setLore(Utils.convertListColorCode(getConfig().getStringList("superpickaxe.description")));
-    }
-
-    public void setAllDefaultInventoriesAndEntities() {
+    // Permet de définir la liste des entités
+    private void setDefaultEntities() {
         entityList = Entities.setEntityList(this);
         entityListString = Entities.setEntityListString(entityList);
+    }
+
+    // Permet de définit la liste des inventaires
+    public void setDefaultInventories() {
         manageInventory = ManagerMain.setManageInventory(this);
         Inventories.setEntityInventoryList(this);
         Inventories.setShopInventory(this);
         Inventories.setRightClickSpawnerInventory(this);
+    }
+
+    // Permet de charger le fichier des entités (ou de le créer s'il n'existe pas)
+    private void loadEntityFile() {
+        if (!YamlFileUtils.fileExist("entity")) {
+            YamlFileUtils.createFile("entity");
+            Entities.addAllEntitiesOnYaml(this, "entity");
+        }
+        entityMapName = Entities.setEntityMapName("entity");
+    }
+
+    public void setItems(Material spawnerItem, Material playerHeadItem, Material signItem, SpawnerPickaxe spawnerPickaxe, SuperSpawnerPickaxe superSpawnerPickaxe) {
+        this.spawnerItem = spawnerItem;
+        this.playerHeadItem = playerHeadItem;
+        this.signItem = signItem;
+        this.spawnerPickaxe = spawnerPickaxe;
+        this.superSpawnerPickaxe = superSpawnerPickaxe;
     }
 
     public Material getSpawnerItem() {

@@ -21,8 +21,9 @@ public class SpawnerCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+        // Commande /spawner ou /spawner list
         if (args.length == 0 || (args.length == 1 && args[0].equalsIgnoreCase("list"))) {
-            if (sender instanceof Player) {
+            if (sender instanceof Player) { // Si celui qui fait la commande est un joeuur
                 Player p = (Player) sender;
                 if (!Utils.hasPermission(p, "spawner-list", main)) {
                     Utils.sendMessage(p, "no-permission", main);

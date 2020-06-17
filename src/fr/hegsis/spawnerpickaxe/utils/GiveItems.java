@@ -49,7 +49,7 @@ public class GiveItems {
         ItemStack itemStack = new ItemStack(main.getSpawnerItem(), amount);
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.setDisplayName(main.getConfig().getString("spawner-inventory.item-name").replaceAll("&", "§").replaceAll("%entity%", entityType.toString()));
+        itemMeta.setDisplayName(main.getConfig().getString("spawner-inventory.item-name").replaceAll("&", "§").replaceAll("%entity%", Entities.getEntityName(entityType)));
         itemMeta.setLore(Utils.convertListColorCode(main.getConfig().getStringList("spawner-inventory.item-lore")));
         itemStack.setItemMeta(itemMeta);
 
