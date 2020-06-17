@@ -77,6 +77,9 @@ spawner-inventory:
     item: BLACK_STAINED_GLASS_PANE # For 1.7.10 → 1.13 : STAINED_GLASS_PANE && data : 15
     data: 0
   item-name: "&5%entity%&d's spawner"
+  item-lore:
+    - "&7Right click on the ground with"
+    - "&7this item to place it !"
   next-page: "&e&lNext Page &7(2/2)"
   previous-page: "&e&lPrevious Page &7(1/2)"
   leave: "&c&lLeave"
