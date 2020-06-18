@@ -2,13 +2,13 @@
 #                                                                           #
 #                       Plugin created by HegSiS                            #
 #       For all the next message, the color code has been supported (&)     #
-#                        SpawnerPickaxe v3.0.3                              #
+#                        SpawnerPickaxe v3.0.4                              #
 #                                                                           #
 #############################################################################
 
 #      / \
-#     / | \
-#    /  |  \  IMPORTANT : IF YOU HAVE %durability% or %money% OR OTHER IN A MESSAGE DON'T ADD A '%'
+#     / | \    IMPORTANT : IF YOU HAVE %durability% or %money% OR OTHER IN A MESSAGE DON'T ADD A '%'
+#    /  |  \   IMPORTANT : In case you use a version before 1.13 please check each ITEM !
 #   /   •   \
 #  /_________\
 
@@ -272,6 +272,8 @@ messages:
   entity-already-unlock: "&7The &c%entity%&7's entity is already unlock !"
   entity-lock: "&7The &d%entity% &7is now locked !"
   entity-unlock: "&7The &d%entity% &7is now unlocked !"
+  entity-name-needed: "&cThe entity name can't be null !"
+  entity-new-name: "&7New name for &d%entity%&7: %name%"
 
 #############################################################################
 #                                                                           #

@@ -50,4 +50,10 @@ public class EntityFileUtils {
         }
         YamlFileUtils.saveFile(fc, "entity");
     }
+
+    public static void setEntityName(EntityType entityType, String name) {
+        FileConfiguration fc = YamlFileUtils.getFileConfiguration("entity");
+        fc.set(entityType.toString(), name);
+        YamlFileUtils.saveFile(fc, "entity");
+    }
 }

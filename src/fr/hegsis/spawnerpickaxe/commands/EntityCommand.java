@@ -1,7 +1,6 @@
 package fr.hegsis.spawnerpickaxe.commands;
 
 import fr.hegsis.spawnerpickaxe.Main;
-import fr.hegsis.spawnerpickaxe.manager.Option;
 import fr.hegsis.spawnerpickaxe.utils.Entities;
 import fr.hegsis.spawnerpickaxe.utils.Inventories;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
@@ -100,11 +99,23 @@ public class EntityCommand implements CommandExecutor {
                 }
             }
 
+            // Si la coommande est /entity setname [entity] [name]
+            if (args[0].equalsIgnoreCase("setname")) {
+                if (args.length == 2) {
+                    sender.sendMessage(Utils.getConfigMessage("entity-name-needed", main));
+                    return false;
+                }
 
+                StringBuilder newName = new StringBuilder();
+                for (int i=2; i<args.length; i++) {
+                    newName.append(args[i]).append(" ");
+                }
+                EntityFileUtils.setEntityName(entity, newName.toString());
+                sender.sendMessage(Utils.getConfigMessage("entity-new-name", main).replaceAll("%entity%", entity.toString()).replaceAll("%name%", newName.toString().replaceAll("&", "§")));
+                return true;
+            }
         }
 
-        sender.sendMessage("§8• §6/entity lock [entity] §f→ §eLock an entity");
-        sender.sendMessage("§8• §6/entity unlock [entity] §f→ §eUnlock an entity");
         sender.sendMessage("§8• §6/entity setname [entity] [name] §f→ §eChange an entity name");
 
         Utils.sendHelpMessage(sender);
@@ -116,5 +127,7 @@ public class EntityCommand implements CommandExecutor {
         main.entityListString = Entities.convertEntityListToString(main.entityList);
         Inventories.setEntityInventoryList(main);
         main.entityMapName = EntityFileUtils.setEntityMapName();
+        main.getConfig().set("disabled-mob", main.deleteEntities);
+        main.saveConfig();
     }
 }
