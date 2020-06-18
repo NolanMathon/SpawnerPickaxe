@@ -3,11 +3,8 @@ package fr.hegsis.spawnerpickaxe.utils;
 import fr.hegsis.spawnerpickaxe.Main;
 import fr.hegsis.spawnerpickaxe.objects.SpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.objects.SuperSpawnerPickaxe;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import net.minecraft.server.v1_8_R3.NBTTagString;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -53,11 +50,16 @@ public class GiveItems {
         itemMeta.setLore(Utils.convertListColorCode(main.getConfig().getStringList("spawner-inventory.item-lore")));
         itemStack.setItemMeta(itemMeta);
 
-        net.minecraft.server.v1_8_R3.ItemStack nmsSpawner = CraftItemStack.asNMSCopy(itemStack);
+        NBT spawnerNBT = NBT.get(itemStack);
+        assert spawnerNBT != null;
+        spawnerNBT.setString("spawnerEntity", entityType.toString());
+        spawnerNBT.apply(itemStack);
+
+        /*net.minecraft.server.v1_8_R3.ItemStack nmsSpawner = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound spawnerCompound = (nmsSpawner.hasTag()) ? nmsSpawner.getTag() : new NBTTagCompound();
-        spawnerCompound.set("spawnerEntity", new NBTTagString(entityType.toString()));
+        spawnerCompound.setString("spawnerEntity", entityType.toString());
         nmsSpawner.setTag(spawnerCompound);
-        CraftItemStack.asBukkitCopy(nmsSpawner);
+        CraftItemStack.asBukkitCopy(nmsSpawner);*/
 
         // Si l'inventaire du joueur est full, on lui drop le spawner au sol
         if (p.getInventory().firstEmpty() == -1 || onTheGround) {

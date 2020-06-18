@@ -79,7 +79,7 @@ spawner-inventory:
   item-name: "&5%entity%&d's spawner"
   item-lore:
     - "&7Right click on the ground with"
-    - "&7this item to place it !"
+    - "&7this spawner to place it !"
   next-page: "&e&lNext Page &7(2/2)"
   previous-page: "&e&lPrevious Page &7(1/2)"
   leave: "&c&lLeave"

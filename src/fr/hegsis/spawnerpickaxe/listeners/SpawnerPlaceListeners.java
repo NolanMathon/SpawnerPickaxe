@@ -2,6 +2,7 @@ package fr.hegsis.spawnerpickaxe.listeners;
 
 import fr.hegsis.spawnerpickaxe.Main;
 import fr.hegsis.spawnerpickaxe.manager.Option;
+import fr.hegsis.spawnerpickaxe.utils.NBT;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.block.CreatureSpawner;
@@ -44,7 +45,24 @@ public class SpawnerPlaceListeners implements Listener {
             return;
         }
 
-        net.minecraft.server.v1_8_R3.ItemStack nmsSpawner = CraftItemStack.asNMSCopy(spawner);
+        NBT spawnerNBT = NBT.get(spawner);
+        // Si le spawner n'a pas de tag
+        if (spawnerNBT == null) {
+            Utils.sendMessage(p, "error", main);
+            e.setCancelled(true);
+            return;
+        }
+
+        // Si le spawner n'a pas le tag "spawnerEntity"
+        if (!spawnerNBT.hasKey("spawnerEntity")) {
+            Utils.sendMessage(p, "error", main);
+            e.setCancelled(true);
+            return;
+        }
+
+        String entity = spawnerNBT.getString("spawnerEntity");
+
+        /*net.minecraft.server.v1_8_R3.ItemStack nmsSpawner = CraftItemStack.asNMSCopy(spawner);
         // Si le spawner n'a pas de tag
         if (!nmsSpawner.hasTag()) {
             Utils.sendMessage(p, "error", main);
@@ -60,7 +78,8 @@ public class SpawnerPlaceListeners implements Listener {
             return;
         }
 
-        String entity = spawnerCompound.getString("spawnerEntity");
+        String entity = spawnerCompound.getString("spawnerEntity");*/
+
         EntityType spawnerEntity = EntityType.valueOf(entity);
         CreatureSpawner spawnerBlock = (CreatureSpawner) e.getBlockPlaced().getState();
         spawnerBlock.setSpawnedType(spawnerEntity);
