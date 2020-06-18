@@ -150,8 +150,8 @@ public class Utils {
         sender.sendMessage("§8• §6/ssp fusion §f→ §eMerge pickaxes");
         sender.sendMessage("§8• §6/spawner list §f→ §eList of spawners");
         sender.sendMessage("§8• §6/spawner [entity] §7(player) (amount) §f→ §eGive a spawner");
-        sender.sendMessage("§8• §6/entity list §f→ §eList of entities");
-        sender.sendMessage("§8• §6/entity listlock [entity] §f→ §eList of locked entites");
+        sender.sendMessage("§8• §6/entity unlocklist §f→ §eList of entities");
+        sender.sendMessage("§8• §6/entity locklist [entity] §f→ §eList of locked entites");
         sender.sendMessage("§8• §6/entity lock [entity] §f→ §eLock an entity");
         sender.sendMessage("§8• §6/entity unlock [entity] §f→ §eUnlock an entity");
         sender.sendMessage("§8• §6/entity setname [entity] [name] §f→ §eChange an entity name");

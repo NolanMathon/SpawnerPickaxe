@@ -11,6 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EntityCommand implements CommandExecutor {
 
     private Main main;
@@ -110,13 +113,12 @@ public class EntityCommand implements CommandExecutor {
                 for (int i=2; i<args.length; i++) {
                     newName.append(args[i]).append(" ");
                 }
-                EntityFileUtils.setEntityName(entity, newName.toString());
-                sender.sendMessage(Utils.getConfigMessage("entity-new-name", main).replaceAll("%entity%", entity.toString()).replaceAll("%name%", newName.toString().replaceAll("&", "§")));
+                EntityFileUtils.setEntityName(entity, newName.toString().substring(0, newName.length()-1));
+                sender.sendMessage(Utils.getConfigMessage("entity-new-name", main).replaceAll("%entity%", entity.toString()).replaceAll("%name%", newName.toString().replaceAll("&", "§").substring(0, newName.length()-1)));
+                resetMenuAndList();
                 return true;
             }
         }
-
-        sender.sendMessage("§8• §6/entity setname [entity] [name] §f→ §eChange an entity name");
 
         Utils.sendHelpMessage(sender);
         return false;
@@ -127,7 +129,12 @@ public class EntityCommand implements CommandExecutor {
         main.entityListString = Entities.convertEntityListToString(main.entityList);
         Inventories.setEntityInventoryList(main);
         main.entityMapName = EntityFileUtils.setEntityMapName();
-        main.getConfig().set("disabled-mob", main.deleteEntities);
+        List<String> entities = new ArrayList<>();
+        for (EntityType et : main.deleteEntities) {
+            entities.add(et.toString());
+        }
+        main.getConfig().set("disabled-mob", entities);
         main.saveConfig();
+        main.reloadConfig();
     }
 }

@@ -43,7 +43,7 @@ public class SpawnerClickListeners implements Listener {
 
         ItemStack it = new ItemStack(main.getSpawnerItem());
         ItemMeta im = it.getItemMeta();
-        im.setDisplayName(main.getConfig().getString("spawner-inventory.item-name").replaceAll("&", "§").replaceAll("%entity%", entityType.toString()));
+        im.setDisplayName(main.getConfig().getString("spawner-inventory.item-name").replaceAll("&", "§").replaceAll("%entity%", main.entityMapName.get(entityType)));
         List<String> lore = new ArrayList<>();
         lore.add("§7"+block.getLocation().getBlockX());
         lore.add("§7"+block.getLocation().getBlockY());

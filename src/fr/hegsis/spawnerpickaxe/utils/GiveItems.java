@@ -46,29 +46,23 @@ public class GiveItems {
         ItemStack itemStack = new ItemStack(main.getSpawnerItem(), amount);
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.setDisplayName(main.getConfig().getString("spawner-inventory.item-name").replaceAll("&", "§").replaceAll("%entity%", Entities.getEntityName(entityType)));
+        itemMeta.setDisplayName(main.getConfig().getString("spawner-inventory.item-name").replaceAll("%entity%", main.entityMapName.get(entityType)).replaceAll("&", "§"));
         itemMeta.setLore(Utils.convertListColorCode(main.getConfig().getStringList("spawner-inventory.item-lore")));
         itemStack.setItemMeta(itemMeta);
 
         NBT spawnerNBT = NBT.get(itemStack);
         assert spawnerNBT != null;
         spawnerNBT.setString("spawnerEntity", entityType.toString());
-        spawnerNBT.apply(itemStack);
-
-        /*net.minecraft.server.v1_8_R3.ItemStack nmsSpawner = CraftItemStack.asNMSCopy(itemStack);
-        NBTTagCompound spawnerCompound = (nmsSpawner.hasTag()) ? nmsSpawner.getTag() : new NBTTagCompound();
-        spawnerCompound.setString("spawnerEntity", entityType.toString());
-        nmsSpawner.setTag(spawnerCompound);
-        CraftItemStack.asBukkitCopy(nmsSpawner);*/
+        itemStack = spawnerNBT.apply(itemStack);
 
         // Si l'inventaire du joueur est full, on lui drop le spawner au sol
         if (p.getInventory().firstEmpty() == -1 || onTheGround) {
             p.getWorld().dropItemNaturally(p.getLocation(), itemStack);
-            p.sendMessage(Utils.getConfigMessage("give-spawner-on-the-ground", main).replaceAll("%amount%", ""+amount).replaceAll("%entity%", ""+entityType));
+            p.sendMessage(Utils.getConfigMessage("give-spawner-on-the-ground", main).replaceAll("%amount%", ""+amount).replaceAll("%entity%", main.entityMapName.get(entityType)));
             return;
         }
         // Sinon on lui met dans son inventaire
         p.getInventory().addItem(itemStack);
-        p.sendMessage(Utils.getConfigMessage("give-spawner", main).replaceAll("%amount%", ""+amount).replaceAll("%entity%", ""+entityType));
+        p.sendMessage(Utils.getConfigMessage("give-spawner", main).replaceAll("%amount%", ""+amount).replaceAll("%entity%", main.entityMapName.get(entityType)));
     }
 }

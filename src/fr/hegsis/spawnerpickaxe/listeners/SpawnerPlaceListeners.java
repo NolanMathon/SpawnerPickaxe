@@ -4,9 +4,7 @@ import fr.hegsis.spawnerpickaxe.Main;
 import fr.hegsis.spawnerpickaxe.manager.Option;
 import fr.hegsis.spawnerpickaxe.utils.NBT;
 import fr.hegsis.spawnerpickaxe.utils.Utils;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.block.CreatureSpawner;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -61,29 +59,11 @@ public class SpawnerPlaceListeners implements Listener {
 
         String entity = spawnerNBT.getString("spawnerEntity");
 
-        /*net.minecraft.server.v1_8_R3.ItemStack nmsSpawner = CraftItemStack.asNMSCopy(spawner);
-        // Si le spawner n'a pas de tag
-        if (!nmsSpawner.hasTag()) {
-            Utils.sendMessage(p, "error", main);
-            e.setCancelled(true);
-            return;
-        }
-
-        NBTTagCompound spawnerCompound = nmsSpawner.getTag();
-        // Si le spawner n'a pas le tag "spawnerEntity"
-        if (!spawnerCompound.hasKey("spawnerEntity")) {
-            Utils.sendMessage(p, "error", main);
-            e.setCancelled(true);
-            return;
-        }
-
-        String entity = spawnerCompound.getString("spawnerEntity");*/
-
         EntityType spawnerEntity = EntityType.valueOf(entity);
         CreatureSpawner spawnerBlock = (CreatureSpawner) e.getBlockPlaced().getState();
         spawnerBlock.setSpawnedType(spawnerEntity);
         spawnerBlock.update();
         Utils.playSound(p, "on-spawner-place", main);
-        p.sendMessage(Utils.getConfigMessage("spawner-place", main).replaceAll("%spawner%", entity));
+        p.sendMessage(Utils.getConfigMessage("spawner-place", main).replaceAll("%spawner%", main.entityMapName.get(spawnerEntity)));
     }
 }

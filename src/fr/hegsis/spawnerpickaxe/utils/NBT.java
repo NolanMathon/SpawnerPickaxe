@@ -11,20 +11,17 @@ public class NBT {
     private static final String version = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
     private static final String cbVersion = "org.bukkit.craftbukkit." + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
     private static Class<?> tagCompoundClass;
-    private static Class<?> nbtBaseClass;
     private static Class<?> nmsItemstackClass;
     private static Class<?> craftItemstackClass;
 
     private final Object tagCompund;
 
-    static{
-        try{
+    static {
+        try {
             tagCompoundClass = Class.forName(version + ".NBTTagCompound");
-            nbtBaseClass = Class.forName(version + ".NBTBase");
             nmsItemstackClass = Class.forName(version + ".ItemStack");
             craftItemstackClass = Class.forName(cbVersion + ".inventory.CraftItemStack");
-        }
-        catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
             Bukkit.getPluginManager().disablePlugin(Main.getInstance());
         }
@@ -39,8 +36,7 @@ public class NBT {
         if(tagCompound == null){
             try{
                 toSet = tagCompoundClass.newInstance();
-            }
-            catch(Exception ex){
+            } catch(Exception ex) {
                 ex.printStackTrace();
             }
         }
@@ -58,8 +54,7 @@ public class NBT {
             Object r = m.invoke(this.tagCompund, key);
             m.setAccessible(false);
             return r instanceof Integer ? (Integer) r : null;
-        }
-        catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
             return null;
         }
@@ -71,8 +66,7 @@ public class NBT {
             m.setAccessible(true);
             m.invoke(this.tagCompund, key, value);
             m.setAccessible(false);
-        }
-        catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -133,8 +127,7 @@ public class NBT {
             m.setAccessible(false);
 
             return o instanceof ItemStack ? (ItemStack) o : null;
-        }
-        catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
             return null;
         }
@@ -153,8 +146,7 @@ public class NBT {
             getCompound.setAccessible(false);
 
             return new NBT(nbtCompound);
-        }
-        catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
             return null;
         }
