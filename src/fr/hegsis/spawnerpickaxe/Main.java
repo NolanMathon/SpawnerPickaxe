@@ -1,5 +1,6 @@
 package fr.hegsis.spawnerpickaxe;
 
+import fr.hegsis.spawnerpickaxe.commands.EntityCommand;
 import fr.hegsis.spawnerpickaxe.commands.SpawnerCommand;
 import fr.hegsis.spawnerpickaxe.commands.SpawnerPickaxeCommand;
 import fr.hegsis.spawnerpickaxe.commands.SuperSpawnerPickaxeCommand;
@@ -10,6 +11,7 @@ import fr.hegsis.spawnerpickaxe.objects.SpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.objects.SuperSpawnerPickaxe;
 import fr.hegsis.spawnerpickaxe.utils.Entities;
 import fr.hegsis.spawnerpickaxe.utils.Inventories;
+import fr.hegsis.spawnerpickaxe.utils.file.yaml.EntityFileUtils;
 import fr.hegsis.spawnerpickaxe.utils.file.yaml.YamlFileUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -43,6 +45,8 @@ public class Main extends JavaPlugin {
     // ENTITEES
     public List<EntityType> entityList = new ArrayList<>(); // Liste des entités vivantes
     public String entityListString; // Chaîne de caractère qui contient la liste des entités vivantes
+    public List<EntityType> deleteEntities = new ArrayList<>(); // Liste contenant toutes les entités supprimés
+    public String deleteEntitiesListString; // Chaîne de caractère qui contient la liste des entités supprimés
     public Map<EntityType, String> entityMapName; // Map contenant chaque entité avec son nom modifié
 
     // INVENTAIRES
@@ -95,12 +99,15 @@ public class Main extends JavaPlugin {
         getCommand("spawner").setExecutor(new SpawnerCommand(this));
         getCommand("spawnerpickaxe").setExecutor(new SpawnerPickaxeCommand(this));
         getCommand("superspawnerpickaxe").setExecutor(new SuperSpawnerPickaxeCommand(this));
+        getCommand("entity").setExecutor(new EntityCommand(this));
     }
 
     // Permet de définir la liste des entités
     private void setDefaultEntities() {
+        deleteEntities = Entities.setDeleteEntities(this);
+        deleteEntitiesListString = Entities.convertEntityListToString(deleteEntities);
         entityList = Entities.setEntityList(this);
-        entityListString = Entities.setEntityListString(entityList);
+        entityListString = Entities.convertEntityListToString(entityList);
     }
 
     // Permet de définit la liste des inventaires
@@ -115,9 +122,9 @@ public class Main extends JavaPlugin {
     private void loadEntityFile() {
         if (!YamlFileUtils.fileExist("entity")) {
             YamlFileUtils.createFile("entity");
-            Entities.addAllEntitiesOnYaml(this, "entity");
+            EntityFileUtils.addAllEntitiesOnYaml();
         }
-        entityMapName = Entities.setEntityMapName("entity");
+        entityMapName = EntityFileUtils.setEntityMapName();
     }
 
     public void setItems(Material spawnerItem, Material playerHeadItem, Material signItem, SpawnerPickaxe spawnerPickaxe, SuperSpawnerPickaxe superSpawnerPickaxe) {

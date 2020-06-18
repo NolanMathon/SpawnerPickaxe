@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 public class SpawnerCommand implements CommandExecutor {
 
     private Main main;
-
     public SpawnerCommand(Main main) {
         this.main = main;
     }
@@ -101,28 +100,7 @@ public class SpawnerCommand implements CommandExecutor {
         }
 
         // Si il y a plus de 3 arguments
-        if (sender instanceof Player) {
-            Player p = (Player) sender;
-
-            //Si le joueur n'a pas la permission
-            if (!Utils.hasPermission(p, "spawnerpickaxe-help", main)) {
-                Utils.sendMessage(p, "no-permission", main);
-                return false;
-            }
-        }
-
-        sender.sendMessage("§7§m---------§6 SpawnerPickaxe Help §7§m---------");
-        sender.sendMessage("");
-        sender.sendMessage("§8• §6/ps §7(player) (durability) §f→ §eGive a Spawner Pickaxe");
-        sender.sendMessage("§8• §6/ps shop §f→ §eOpen Spawner Pickaxe Shop");
-        sender.sendMessage("§8• §6/ps fusion §f→ §eMerge pickaxes");
-        sender.sendMessage("§8• §6/ps gui/manage §f→ §eOpen Spawner Pickaxe Manager");
-        sender.sendMessage("§8• §6/ssp §7(player) (durability) §f→ §eGive a Super Spawner Pickaxe");
-        sender.sendMessage("§8• §6/ssp fusion §f→ §eMerge pickaxes");
-        sender.sendMessage("§8• §6/spawner list §f→ §eList of spawners");
-        sender.sendMessage("§8• §6/spawner [entity] §7(player) (amount) §f→ §eGive a spawner");
-        sender.sendMessage("");
-        sender.sendMessage("§7§m---------§6 SpawnerPickaxe Help §7§m---------");
+        Utils.sendHelpMessage(sender);
         return false;
     }
 

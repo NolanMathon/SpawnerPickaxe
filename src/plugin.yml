@@ -15,3 +15,6 @@ commands:
     description: All commands concerned with spawner pickaxe
   spawner:
     description: Show / Summon spawners
+  entity:
+    description: Manage entity
+    aliases: ent

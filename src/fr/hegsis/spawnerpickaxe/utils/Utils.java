@@ -5,6 +5,7 @@ import fr.hegsis.spawnerpickaxe.manager.Option;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -123,5 +124,39 @@ public class Utils {
             if (mat != null) return;
         } catch (NullPointerException e) { }
         main.getServer().getConsoleSender().sendMessage("§4Item §c" + material + " §4isn't valid !");
+    }
+
+    // Fonction qui permet d'envoyer un message à un utilisateur
+    public static void sendHelpMessage(CommandSender sender) {
+        Main main = Main.getInstance();
+
+        if (sender instanceof Player) {
+            Player p = (Player) sender;
+
+            //Si le joueur n'a pas la permission
+            if (!Utils.hasPermission(p, "spawnerpickaxe-help", main)) {
+                Utils.sendMessage(p, "no-permission", main);
+                return;
+            }
+        }
+
+        sender.sendMessage("§7§m---------§6 SpawnerPickaxe Help §7§m---------");
+        sender.sendMessage("");
+        sender.sendMessage("§8• §6/ps §7(player) (durability) §f→ §eGive a Spawner Pickaxe");
+        sender.sendMessage("§8• §6/ps shop §f→ §eOpen Spawner Pickaxe Shop");
+        sender.sendMessage("§8• §6/ps fusion §f→ §eMerge pickaxes");
+        sender.sendMessage("§8• §6/ps gui/manage §f→ §eOpen Spawner Pickaxe Manager");
+        sender.sendMessage("§8• §6/ssp §7(player) (durability) §f→ §eGive a Super Spawner Pickaxe");
+        sender.sendMessage("§8• §6/ssp fusion §f→ §eMerge pickaxes");
+        sender.sendMessage("§8• §6/spawner list §f→ §eList of spawners");
+        sender.sendMessage("§8• §6/spawner [entity] §7(player) (amount) §f→ §eGive a spawner");
+        sender.sendMessage("§8• §6/entity list §f→ §eList of entities");
+        sender.sendMessage("§8• §6/entity listlock [entity] §f→ §eList of locked entites");
+        sender.sendMessage("§8• §6/entity lock [entity] §f→ §eLock an entity");
+        sender.sendMessage("§8• §6/entity unlock [entity] §f→ §eUnlock an entity");
+        sender.sendMessage("§8• §6/entity setname [entity] [name] §f→ §eChange an entity name");
+        sender.sendMessage("§8• §6/entity reset §f→ §eReset all entities names");
+        sender.sendMessage("");
+        sender.sendMessage("§7§m---------§6 SpawnerPickaxe Help §7§m---------");
     }
 }

@@ -17,7 +17,6 @@ import org.bukkit.inventory.ItemStack;
 public class SpawnerPlaceListeners implements Listener {
 
     private Main main;
-
     public SpawnerPlaceListeners(Main main) {
         this.main = main;
     }
