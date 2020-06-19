@@ -4,6 +4,8 @@ import fr.hegsis.spawnerpickaxe.commands.EntityCommand;
 import fr.hegsis.spawnerpickaxe.commands.SpawnerCommand;
 import fr.hegsis.spawnerpickaxe.commands.SpawnerPickaxeCommand;
 import fr.hegsis.spawnerpickaxe.commands.SuperSpawnerPickaxeCommand;
+import fr.hegsis.spawnerpickaxe.commands.tabcompletion.EntityTabCompleter;
+import fr.hegsis.spawnerpickaxe.commands.tabcompletion.SpawnerTabCompleter;
 import fr.hegsis.spawnerpickaxe.listeners.*;
 import fr.hegsis.spawnerpickaxe.manager.ManagerMain;
 import fr.hegsis.spawnerpickaxe.manager.Option;
@@ -73,6 +75,7 @@ public class Main extends JavaPlugin {
         loadEntityFile(); // Permet de charger le fichier des entités (ou de le créer s'il n'existe pas)
 
         registerEventsAndCommands(); // Permet d'enregistrer les events
+        registerCommandExecutorAndTabCompleter(); // Permet d'enregister les commandes
 
         this.getServer().getConsoleSender().sendMessage("§7SpawnerPickaxe §5→ §aON §f§l(By HegSiS)");
     }
@@ -95,11 +98,16 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new SpawnerBreakListeners(this), this);
         pm.registerEvents(new SpawnerClickListeners(this), this);
         pm.registerEvents(new SpawnerPlaceListeners(this), this);
+    }
 
+    private void registerCommandExecutorAndTabCompleter() {
         getCommand("spawner").setExecutor(new SpawnerCommand(this));
+        getCommand("spawner").setTabCompleter(new SpawnerTabCompleter(this));
         getCommand("spawnerpickaxe").setExecutor(new SpawnerPickaxeCommand(this));
+        getCommand("spawnerpickaxe").setTabCompleter(new SpawnerTabCompleter(this));
         getCommand("superspawnerpickaxe").setExecutor(new SuperSpawnerPickaxeCommand(this));
         getCommand("entity").setExecutor(new EntityCommand(this));
+        getCommand("entity").setTabCompleter(new EntityTabCompleter(this));
     }
 
     // Permet de définir la liste des entités

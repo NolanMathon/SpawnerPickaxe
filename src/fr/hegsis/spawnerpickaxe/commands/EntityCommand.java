@@ -102,7 +102,7 @@ public class EntityCommand implements CommandExecutor {
                 }
             }
 
-            // Si la coommande est /entity setname [entity] [name]
+            // Si la commande est /entity setname [entity] [name]
             if (args[0].equalsIgnoreCase("setname")) {
                 if (args.length == 2) {
                     sender.sendMessage(Utils.getConfigMessage("entity-name-needed", main));
