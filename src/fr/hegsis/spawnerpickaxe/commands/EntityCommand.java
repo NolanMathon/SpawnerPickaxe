@@ -26,29 +26,43 @@ public class EntityCommand implements CommandExecutor {
         // Commande /spawner ou /spawner list
         if (args.length == 1) {
 
-            if (sender instanceof Player) { // Si celui qui fait la commande est un joueur
-                Player p = (Player) sender;
-                if (!Utils.hasPermission(p, "spawner-list", main)) {
-                    Utils.sendMessage(p, "no-permission", main);
-                    return false;
-                }
-            }
-
             // Si la commande est /entity unlocklist
             if (args[0].equalsIgnoreCase("unlocklist")) {
+                if (sender instanceof Player) { // Si celui qui fait la commande est un joueur
+                    Player p = (Player) sender;
+                    if (!Utils.hasPermission(p, "entity-list", main)) {
+                        Utils.sendMessage(p, "no-permission", main);
+                        return false;
+                    }
+                }
                 sender.sendMessage(main.entityListString);
                 return true;
             }
 
             // Si la commande est /entity locklist
             if (args[0].equalsIgnoreCase("locklist")) {
+                if (sender instanceof Player) { // Si celui qui fait la commande est un joueur
+                    Player p = (Player) sender;
+                    if (!Utils.hasPermission(p, "entity-list", main)) {
+                        Utils.sendMessage(p, "no-permission", main);
+                        return false;
+                    }
+                }
                 sender.sendMessage(main.deleteEntitiesListString);
                 return true;
             }
 
             // Si la commande est /entity reset
             if (args[0].equalsIgnoreCase(("reset"))) {
+                if (sender instanceof Player) { // Si celui qui fait la commande est un joueur
+                    Player p = (Player) sender;
+                    if (!Utils.hasPermission(p, "entity-reset", main)) {
+                        Utils.sendMessage(p, "no-permission", main);
+                        return false;
+                    }
+                }
                 EntityFileUtils.addAllEntitiesOnYaml();
+                sender.sendMessage(Utils.getConfigMessage("entity-reset", main));
                 return true;
             }
         }
@@ -73,6 +87,14 @@ public class EntityCommand implements CommandExecutor {
             if (args.length == 2) {
                 // Si la commande est /entity lock [entity]
                 if (args[0].equalsIgnoreCase("lock")) {
+                    if (sender instanceof Player) { // Si celui qui fait la commande est un joueur
+                        Player p = (Player) sender;
+                        if (!Utils.hasPermission(p, "entity-lock", main)) {
+                            Utils.sendMessage(p, "no-permission", main);
+                            return false;
+                        }
+                    }
+
                     if (!main.entityList.contains(entity)) {
                         sender.sendMessage(Utils.getConfigMessage("entity-already-lock", main).replaceAll("%entity%", entity.toString()));
                         return false;
@@ -88,6 +110,14 @@ public class EntityCommand implements CommandExecutor {
 
                 // Si la commande est /entity unlock [entity]
                 if (args[0].equalsIgnoreCase("unlock")) {
+                    if (sender instanceof Player) { // Si celui qui fait la commande est un joueur
+                        Player p = (Player) sender;
+                        if (!Utils.hasPermission(p, "entity-unlock", main)) {
+                            Utils.sendMessage(p, "no-permission", main);
+                            return false;
+                        }
+                    }
+
                     if (!main.deleteEntities.contains(entity)) {
                         sender.sendMessage(Utils.getConfigMessage("entity-already-unlock", main).replaceAll("%entity%", entity.toString()));
                         return false;
@@ -104,6 +134,14 @@ public class EntityCommand implements CommandExecutor {
 
             // Si la commande est /entity setname [entity] [name]
             if (args[0].equalsIgnoreCase("setname")) {
+                if (sender instanceof Player) { // Si celui qui fait la commande est un joueur
+                    Player p = (Player) sender;
+                    if (!Utils.hasPermission(p, "entity-rename", main)) {
+                        Utils.sendMessage(p, "no-permission", main);
+                        return false;
+                    }
+                }
+
                 if (args.length == 2) {
                     sender.sendMessage(Utils.getConfigMessage("entity-name-needed", main));
                     return false;

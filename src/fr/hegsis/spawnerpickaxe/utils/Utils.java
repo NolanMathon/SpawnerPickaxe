@@ -156,6 +156,7 @@ public class Utils {
         sender.sendMessage("§8• §6/entity unlock [entity] §f→ §eUnlock an entity");
         sender.sendMessage("§8• §6/entity setname [entity] [name] §f→ §eChange an entity name");
         sender.sendMessage("§8• §6/entity reset §f→ §eReset all entities names");
+        sender.sendMessage("§8• §cBe carreful, /entity reset set default entity name");
         sender.sendMessage("");
         sender.sendMessage("§7§m---------§6 SpawnerPickaxe Help §7§m---------");
     }

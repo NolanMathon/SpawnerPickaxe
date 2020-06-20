@@ -274,6 +274,7 @@ messages:
   entity-unlock: "&7The &d%entity% &7is now unlocked !"
   entity-name-needed: "&cThe entity name can't be null !"
   entity-new-name: "&7New name for &d%entity%&7: %name%"
+  entity-reset: "&7Entities reset by default !"
 
 #############################################################################
 #                                                                           #
@@ -295,3 +296,8 @@ permissions:
   spawner-list: "spawnerpickaxe.spawner.list"
   spawner-use: "spawnerpickaxe.spawner.use"
   show-errors: "spawnerpickaxe.errors"
+  entity-list: "spawnerpickaxe.entity.list"
+  entity-lock: "spawnerpickaxe.entity.lock"
+  entity-unlock: "spawnerpickaxe.entity.unlock"
+  entity-rename: "spawnerpickaxe.entity.list"
+  entity-reset: "spawnerpickaxe.entity.reset"
